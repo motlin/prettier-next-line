@@ -13,7 +13,7 @@ describe("--cache option", () => {
   const dir = resolveDir("cli/cache");
   const defaultCacheFile = path.join(
     dir,
-    "node_modules/.cache/prettier/.prettier-cache",
+    "node_modules/.cache/maculate/.maculate-cache",
   );
 
   const nonDefaultCacheFileName = ".non-default-cache-file";
@@ -121,7 +121,7 @@ describe("--cache option", () => {
   });
 
   describe("--cache-strategy metadata", () => {
-    it("creates default cache file named `node_modules/.cache/prettier/.prettier-cache`", async () => {
+    it("creates default cache file named `node_modules/.cache/maculate/.maculate-cache`", async () => {
       await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
         "code",
         "ENOENT",
@@ -426,7 +426,7 @@ describe("--cache option", () => {
   });
 
   describe("--cache-strategy content", () => {
-    it("creates default cache file named `node_modules/.cache/prettier/.prettier-cache`", async () => {
+    it("creates default cache file named `node_modules/.cache/maculate/.maculate-cache`", async () => {
       await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
         "code",
         "ENOENT",

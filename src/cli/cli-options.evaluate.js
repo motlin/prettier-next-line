@@ -106,7 +106,7 @@ const options = {
   config: {
     category: optionCategories.CATEGORY_CONFIG,
     description:
-      "Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).",
+      "Path to a Maculate configuration file (.prettierrc, package.json, prettier.config.js).",
     exception: (value) => value === false,
     oppositeDescription: "Do not look for a configuration file.",
     type: "path",
@@ -211,7 +211,7 @@ const options = {
     alias: "l",
     category: optionCategories.CATEGORY_OUTPUT,
     description:
-      "Print the names of files that are different from Prettier's formatting (see also --check).",
+      "Print the names of files that are different from Maculate's formatting (see also --check).",
     type: "boolean",
   },
   logLevel: {
@@ -226,7 +226,7 @@ const options = {
   },
   version: {
     alias: "v",
-    description: "Print Prettier version.",
+    description: "Print Maculate version.",
     type: "boolean",
   },
   withNodeModules: {

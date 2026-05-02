@@ -118,7 +118,7 @@ exports[`show detailed usage with --help config  1`] = `
   "stderr": "",
   "stdout": "--config <path>
 
-  Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).",
+  Path to a Maculate configuration file (.prettierrc, package.json, prettier.config.js).",
   "write": [],
 }
 `;
@@ -335,7 +335,7 @@ exports[`show detailed usage with --help list-different  1`] = `
   "stderr": "",
   "stdout": "-l, --list-different
 
-  Print the names of files that are different from Prettier's formatting (see also --check).",
+  Print the names of files that are different from Maculate's formatting (see also --check).",
   "write": [],
 }
 `;
@@ -686,7 +686,7 @@ exports[`show detailed usage with --help version  1`] = `
   "stderr": "",
   "stdout": "-v, --version
 
-  Print Prettier version.",
+  Print Maculate version.",
   "write": [],
 }
 `;

@@ -10,10 +10,10 @@ const categoryOrder = [
 ];
 
 const usageSummary = outdent`
-  Usage: prettier [options] [file/dir/glob ...]
+  Usage: maculate [options] [file/dir/glob ...]
 
   By default, output is written to stdout.
-  Stdin is read if it is piped to Prettier and no files are given.
+  Stdin is read if it is piped to Maculate and no files are given.
 `;
 
 export { categoryOrder, usageSummary };
