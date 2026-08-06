@@ -6887,7 +6887,6 @@ __metadata:
     yuku-parser: "npm:0.8.3"
   bin:
     maculate: ./bin/prettier.cjs
-    prettier: ./bin/prettier.cjs
   languageName: unknown
   linkType: soft
 

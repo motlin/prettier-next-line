@@ -2,10 +2,7 @@
   "name": "maculate",
   "version": "3.10.0-dev",
   "description": "Maculate is an opinionated code formatter with brace style support",
-  "bin": {
-    "maculate": "./bin/prettier.cjs",
-    "prettier": "./bin/prettier.cjs"
-  },
+  "bin": "./bin/prettier.cjs",
   "repository": "motlin/maculate",
   "homepage": "https://github.com/motlin/maculate",
   "author": "James Long",
