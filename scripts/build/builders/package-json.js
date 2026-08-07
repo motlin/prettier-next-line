@@ -53,15 +53,26 @@ function createPackageJsonBuilder({ process }) {
 
     // Rewrite `bin`
     if (original.bin) {
-      const originalBinFile = path.join(sourceDirectory, original.bin);
-      const bin = packageFiles.find(
-        (file) =>
-          file.input &&
-          path.join(sourceDirectory, file.input) === originalBinFile,
-      ).output;
+      const binEntries =
+        typeof original.bin === "string"
+          ? [[original.name, original.bin]]
+          : Object.entries(original.bin);
+      const rewrittenBinEntries = binEntries.map(([name, originalBin]) => {
+        const originalBinFile = path.join(sourceDirectory, originalBin);
+        const bin = packageFiles.find(
+          (file) =>
+            file.input &&
+            path.join(sourceDirectory, file.input) === originalBinFile,
+        )?.output;
 
-      assert.ok(typeof bin === "string");
-      packageJson.bin = `./${bin}`;
+        assert.ok(typeof bin === "string");
+        return [name, `./${bin}`];
+      });
+
+      packageJson.bin =
+        typeof original.bin === "string"
+          ? rewrittenBinEntries[0][1]
+          : Object.fromEntries(rewrittenBinEntries);
     }
 
     if (process) {
