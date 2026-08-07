@@ -1,3 +1,4 @@
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import {
   group,
   hardline,
@@ -7,7 +8,6 @@ import {
   removeLines,
   softline,
 } from "../../document/index.js";
-import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";

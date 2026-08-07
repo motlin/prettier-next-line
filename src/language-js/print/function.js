@@ -1,4 +1,5 @@
 import * as assert from "#universal/assert";
+import { printBraceSeparator } from "../../common/brace-style.js";
 import { group } from "../../document/index.js";
 import { getCallArguments } from "../utilities/call-arguments.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
@@ -11,7 +12,6 @@ import {
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
 import { printKey } from "./key.js";
-import { printBraceSeparator } from "../../common/brace-style.js";
 import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 

@@ -1,6 +1,7 @@
 /** @import {Doc} from "../../document/index.js" */
 
 import * as assert from "#universal/assert";
+import { printBraceSeparator } from "../../common/brace-style.js";
 import { group, replaceEndOfLine } from "../../document/index.js";
 import printNumber from "../../utilities/print-number.js";
 import printString from "../../utilities/print-string.js";
@@ -10,7 +11,6 @@ import { isMethod } from "../utilities/is-method.js";
 import { printArray } from "./array.js";
 import { printArrayType } from "./array-type.js";
 import { printBinaryCastExpression } from "./binary-cast-expression.js";
-import { printBraceSeparator } from "../../common/brace-style.js";
 import {
   printClass,
   printClassBody,

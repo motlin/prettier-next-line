@@ -1,3 +1,4 @@
+import { printBraceSeparator } from "../../common/brace-style.js";
 import {
   group,
   hardline,
@@ -9,7 +10,6 @@ import { printDanglingComments } from "../../main/comments/print.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { printStatementSequence } from "./statement-sequence.js";
-import { printBraceSeparator } from "../../common/brace-style.js";
 
 function printSwitchStatement(path, options, print) {
   return [

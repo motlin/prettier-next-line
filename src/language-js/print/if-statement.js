@@ -1,3 +1,4 @@
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import { group, hardline } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewline from "../../utilities/has-newline.js";
@@ -10,7 +11,6 @@ import {
   printIfStatementConsequent,
 } from "./clause.js";
 import { printIfStatementCondition } from "./miscellaneous.js";
-import { isNextLineBraceStyle } from "../../common/brace-style.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"

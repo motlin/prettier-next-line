@@ -1,5 +1,6 @@
 /** @import {Doc} from "../../document/index.js" */
 
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import {
   conditionalGroup,
   group,
@@ -7,7 +8,6 @@ import {
   ifBreak,
   line,
 } from "../../document/index.js";
-import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import {
   hasEndComments,
   hasLeadingComments,

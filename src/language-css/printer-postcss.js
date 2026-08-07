@@ -1,4 +1,8 @@
 import {
+  isNextLineBraceStyle,
+  printBraceSeparator,
+} from "../common/brace-style.js";
+import {
   breakParent,
   group,
   hardline,
@@ -11,10 +15,6 @@ import {
   replaceEndOfLine,
   softline,
 } from "../document/index.js";
-import {
-  isNextLineBraceStyle,
-  printBraceSeparator,
-} from "../common/brace-style.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import printString from "../utilities/print-string.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";

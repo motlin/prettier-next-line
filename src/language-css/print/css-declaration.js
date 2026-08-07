@@ -1,4 +1,8 @@
 import {
+  isNextLineBraceStyle,
+  printBraceSeparator,
+} from "../../common/brace-style.js";
+import {
   dedent,
   group,
   hardline,
@@ -7,10 +11,6 @@ import {
   removeLines,
   softline,
 } from "../../document/index.js";
-import {
-  isNextLineBraceStyle,
-  printBraceSeparator,
-} from "../../common/brace-style.js";
 import { locEnd } from "../loc.js";
 import {
   hasComposesNode,

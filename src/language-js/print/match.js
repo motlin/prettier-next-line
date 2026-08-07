@@ -1,4 +1,8 @@
 import {
+  isNextLineBraceStyle,
+  printBraceSeparator,
+} from "../../common/brace-style.js";
+import {
   align,
   group,
   hardline,
@@ -8,7 +12,6 @@ import {
   line,
   softline,
 } from "../../document/index.js";
-import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import {
   printComments,
   printDanglingComments,
@@ -18,7 +21,6 @@ import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
-import { printBraceSeparator } from "../../common/brace-style.js";
 
 /*
 - `MatchExpression` (Flow)

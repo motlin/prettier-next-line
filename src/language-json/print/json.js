@@ -1,5 +1,5 @@
-import { hardline, indent, join } from "../../document/index.js";
 import { isNextLineBraceStyle } from "../../common/brace-style.js";
+import { hardline, indent, join } from "../../document/index.js";
 import printString from "../../utilities/print-string.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { getRaw } from "../utilities.js";

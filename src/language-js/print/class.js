@@ -1,4 +1,8 @@
 import {
+  isNextLineBraceStyle,
+  printBraceSeparator,
+} from "../../common/brace-style.js";
+import {
   group,
   hardline,
   ifBreak,
@@ -22,10 +26,6 @@ import { createTypeCheckFunction } from "../utilities/create-type-check-function
 import { isMemberExpression } from "../utilities/node-types.js";
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { printAssignment } from "./assignment.js";
-import {
-  isNextLineBraceStyle,
-  printBraceSeparator,
-} from "../../common/brace-style.js";
 import { printClassMemberDecorators, printDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";
 import { printKey } from "./key.js";
@@ -157,7 +157,11 @@ function printClassWithoutDecorators(path, options, print) {
   */
   if (isNextLineBraceStyle(options)) {
     parts.push(printBraceSeparator(options));
-  } else if (!isPrintingInterface && groupMode && isNonEmptyClassBody(node.body)) {
+  } else if (
+    !isPrintingInterface &&
+    groupMode &&
+    isNonEmptyClassBody(node.body)
+  ) {
     parts.push(ifBreak(hardline, " ", { groupId: heritageGroupId }));
   } else {
     parts.push(" ");

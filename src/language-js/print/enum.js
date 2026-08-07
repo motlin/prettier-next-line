@@ -1,7 +1,7 @@
+import { printBraceSeparator } from "../../common/brace-style.js";
 import { printKey } from "./key.js";
 import { printDeclareToken } from "./miscellaneous.js";
 import { printObject } from "./object.js";
-import { printBraceSeparator } from "../../common/brace-style.js";
 
 function printFlowEnumBody(path, options, print) {
   const { node } = path;
@@ -69,11 +69,7 @@ function printEnumDeclaration(path, options, print) {
     node.const ? "const " : "",
     "enum ",
     print("id"),
-    isTypeScriptEnum
-      ? printBraceSeparator(options)
-      : hasFlowType
-        ? " "
-        : "",
+    isTypeScriptEnum ? printBraceSeparator(options) : hasFlowType ? " " : "",
     print("body"),
   ];
 }

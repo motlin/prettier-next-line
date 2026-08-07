@@ -1,4 +1,8 @@
 import {
+  isNextLineBraceStyle,
+  printBraceSeparator,
+} from "../../common/brace-style.js";
+import {
   group,
   hardline,
   indent,
@@ -6,10 +10,6 @@ import {
   line,
   softline,
 } from "../../document/index.js";
-import {
-  isNextLineBraceStyle,
-  printBraceSeparator,
-} from "../../common/brace-style.js";
 import { printClosingTagEnd, printOpeningTagStart } from "./tag.js";
 
 /*

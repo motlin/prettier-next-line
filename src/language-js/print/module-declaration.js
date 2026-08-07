@@ -1,6 +1,6 @@
+import { printBraceSeparator } from "../../common/brace-style.js";
 import { group } from "../../document/index.js";
 import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
-import { printBraceSeparator } from "../../common/brace-style.js";
 
 /*
 - `TSModuleDeclaration` (TypeScript)

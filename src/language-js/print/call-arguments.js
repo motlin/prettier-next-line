@@ -1,3 +1,4 @@
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import { ArgExpansionBailout } from "../../common/errors.js";
 import {
   breakParent,
@@ -9,7 +10,6 @@ import {
   softline,
   willBreak,
 } from "../../document/index.js";
-import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import {
   getCallArguments,
   getCallArgumentSelector,

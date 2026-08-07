@@ -1,3 +1,4 @@
+import { printBraceSeparator } from "../../common/brace-style.js";
 import { hardline, indent, line } from "../../document/index.js";
 import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
@@ -7,7 +8,6 @@ import {
   getComments,
   hasComment,
 } from "../utilities/comments.js";
-import { printBraceSeparator } from "../../common/brace-style.js";
 
 function shouldPrintLeadingHardline(node, options) {
   const leadingComments = getComments(node, CommentCheckFlags.Leading);
@@ -45,10 +45,7 @@ function printClause(path, options, print, property = "body") {
         path.parent.type === "IfStatement" &&
         path.key === "alternate")
     ) {
-      return [
-        isBlockStatement ? printBraceSeparator(options) : " ",
-        doc,
-      ];
+      return [isBlockStatement ? printBraceSeparator(options) : " ", doc];
     }
 
     return indent([line, doc]);
