@@ -1,3 +1,4 @@
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import {
   hardline,
   ifBreak,
@@ -5,7 +6,6 @@ import {
   line,
   softline,
 } from "../../document/index.js";
-import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import { hasEndComments, isEmptyNode } from "../utilities.js";
 import { alignWithSpaces, printNextEmptyLine } from "./misc.js";
 
@@ -20,7 +20,7 @@ function printFlowMapping(path, options, print) {
     return [openMarker, hardline, closeMarker];
   }
 
-  /** @type {softline | line} */
+  /** @type {typeof hardline | typeof softline | typeof line} */
   let bracketSpacing = softline;
   if (useNextLineBraces) {
     bracketSpacing = hardline;

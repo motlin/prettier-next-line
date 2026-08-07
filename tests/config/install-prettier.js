@@ -116,7 +116,7 @@ function installPrettier(packageDirectory) {
   switch (client) {
     case "npm":
       // npm fails when engine requirement only with `--engine-strict`
-      runNpmClient(["install", packed, "--engine-strict"]);
+      runNpmClient(["install", `prettier@file:${packed}`, "--engine-strict"]);
       break;
     case "pnpm":
       runNpmClient([
@@ -127,7 +127,7 @@ function installPrettier(packageDirectory) {
         "--location=project",
       ]);
       // fails engine mismatch
-      runNpmClient(["add", packed, "--engine-strict"]);
+      runNpmClient(["add", `prettier@file:${packed}`, "--engine-strict"]);
       break;
     case "yarn": {
       // Yarn currently doesn't fail on engine requirement

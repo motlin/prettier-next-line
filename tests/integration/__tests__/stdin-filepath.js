@@ -86,7 +86,12 @@ if (isCI) {
       input: code, // js
     }).test({
       status: 0,
-      stdout: code,
+      stdout: outdent`
+        function f()
+        {
+          console.log("should be indented with a tab");
+        }
+      `,
       stderr: "",
       write: [],
     });
