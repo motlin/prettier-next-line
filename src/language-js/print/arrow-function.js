@@ -1,6 +1,7 @@
 import { ArgExpansionBailout } from "../../common/errors.js";
 import {
   group,
+  hardline,
   ifBreak,
   indent,
   indentIfBreak,
@@ -30,6 +31,7 @@ import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahea
 import { printReturnType, shouldPrintParamsWithoutParens } from "./function.js";
 import { printFunctionParameters } from "./function-parameters.js";
 import { printTrailingComma } from "./miscellaneous.js";
+import { isNextLineBraceStyle } from "./brace-style.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -304,6 +306,19 @@ function printArrowFunctionBody(
     !hasComment(node)
       ? softline
       : "";
+
+  if (
+    functionBody.type === "BlockStatement" &&
+    isNextLineBraceStyle(options)
+  ) {
+    return [
+      hardline,
+      bodyDoc,
+      bodyComments,
+      trailingComma,
+      trailingSpace,
+    ];
+  }
 
   if (shouldPutBodyOnSameLine && shouldAddParensIfNotBreak(functionBody)) {
     return [

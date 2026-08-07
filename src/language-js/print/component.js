@@ -1,6 +1,7 @@
 import { group } from "../../document/index.js";
 import { printFunctionParameters } from "./function-parameters.js";
 import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
+import { printBraceSeparator } from "./brace-style.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -34,7 +35,7 @@ function printComponent(path, options, print) {
   }
 
   if (node.body) {
-    parts.push(" ", print("body"));
+    parts.push(printBraceSeparator(options), print("body"));
   }
 
   if (node.type === "DeclareComponent") {

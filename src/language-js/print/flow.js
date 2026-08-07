@@ -10,6 +10,7 @@ import { isMethod } from "../utilities/is-method.js";
 import { printArray } from "./array.js";
 import { printArrayType } from "./array-type.js";
 import { printBinaryCastExpression } from "./binary-cast-expression.js";
+import { printBraceSeparator } from "./brace-style.js";
 import {
   printClass,
   printClassBody,
@@ -91,7 +92,12 @@ function printFlow(path, options, print, args) {
         printSemicolon(options),
       ];
     case "DeclareModule":
-      return ["declare module ", print("id"), " ", print("body")];
+      return [
+        "declare module ",
+        print("id"),
+        printBraceSeparator(options),
+        print("body"),
+      ];
     case "DeclareModuleExports":
       return [
         "declare module.exports",
@@ -99,7 +105,12 @@ function printFlow(path, options, print, args) {
         printSemicolon(options),
       ];
     case "DeclareNamespace":
-      return ["declare namespace ", print("id"), " ", print("body")];
+      return [
+        "declare namespace ",
+        print("id"),
+        printBraceSeparator(options),
+        print("body"),
+      ];
     case "DeclareVariable":
       if (Array.isArray(node.declarations)) {
         return printVariableDeclaration(path, options, print);
@@ -164,7 +175,7 @@ function printFlow(path, options, print, args) {
 
     case "DeclareEnum":
     case "EnumDeclaration":
-      return printEnumDeclaration(path, print);
+      return printEnumDeclaration(path, options, print);
 
     case "EnumBody":
       return printFlowEnumBody(path, options, print);

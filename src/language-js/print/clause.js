@@ -7,6 +7,7 @@ import {
   getComments,
   hasComment,
 } from "../utilities/comments.js";
+import { printBraceSeparator } from "./brace-style.js";
 
 function shouldPrintLeadingHardline(node, options) {
   const leadingComments = getComments(node, CommentCheckFlags.Leading);
@@ -44,7 +45,10 @@ function printClause(path, options, print, property = "body") {
         path.parent.type === "IfStatement" &&
         path.key === "alternate")
     ) {
-      return [" ", doc];
+      return [
+        isBlockStatement ? printBraceSeparator(options) : " ",
+        doc,
+      ];
     }
 
     return indent([line, doc]);

@@ -5,11 +5,12 @@ import findCacheDirectory from "find-cache-directory";
 import { isJson, statSafe } from "./utilities.js";
 
 /**
- * Find default cache file (`./node_modules/.cache/maculate/.maculate-cache`) using https://github.com/sindresorhus/find-cache-directory
+ * Find default cache file (`./node_modules/.cache/prettier-next-line/.prettier-next-line-cache`) using https://github.com/sindresorhus/find-cache-directory
  */
 function findDefaultCacheFile() {
-  const cacheDir = findCacheDirectory({ name: "maculate" }) ?? os.tmpdir();
-  const cacheFilePath = path.join(cacheDir, ".maculate-cache");
+  const cacheDir =
+    findCacheDirectory({ name: "prettier-next-line" }) ?? os.tmpdir();
+  const cacheFilePath = path.join(cacheDir, ".prettier-next-line-cache");
   return cacheFilePath;
 }
 

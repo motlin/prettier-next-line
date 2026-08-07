@@ -9,6 +9,7 @@ import { printDanglingComments } from "../../main/comments/print.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { printStatementSequence } from "./statement-sequence.js";
+import { printBraceSeparator } from "./brace-style.js";
 
 function printSwitchStatement(path, options, print) {
   return [
@@ -18,7 +19,8 @@ function printSwitchStatement(path, options, print) {
       softline,
       ")",
     ]),
-    " {",
+    printBraceSeparator(options),
+    "{",
     path.node.cases.length > 0
       ? indent([
           hardline,
@@ -61,7 +63,7 @@ function printSwitchCase(path, options, print) {
 
     parts.push(
       consequent.length === 1 && consequent[0].type === "BlockStatement"
-        ? [" ", cons]
+        ? [printBraceSeparator(options), cons]
         : indent([hardline, cons]),
     );
   }

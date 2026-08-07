@@ -5,7 +5,7 @@ exports[`show detailed usage with --help l (alias)  1`] = `
   "stderr": "",
   "stdout": "-l, --list-different
 
-  Print the names of files that are different from Maculate's formatting (see also --check).",
+  Print the names of files that are different from Prettier Next Line's formatting (see also --check).",
   "write": [],
 }
 `;
@@ -27,16 +27,16 @@ Plugin defaults:
 exports[`show usage with --help  1`] = `
 {
   "stderr": "",
-  "stdout": "Usage: maculate [options] [file/dir/glob ...]
+  "stdout": "Usage: prettier-next-line [options] [file/dir/glob ...]
 
 By default, output is written to stdout.
-Stdin is read if it is piped to Maculate and no files are given.
+Stdin is read if it is piped to Prettier Next Line and no files are given.
 
 Output options:
 
   -c, --check              Check if the given files are formatted, print a human-friendly summary
                            message and paths to unformatted files (see also --list-different).
-  -l, --list-different     Print the names of files that are different from Maculate's formatting (see also --check).
+  -l, --list-different     Print the names of files that are different from Prettier Next Line's formatting (see also --check).
   -w, --write              Edit files in-place. (Beware!)
 
 Format options:
@@ -44,6 +44,9 @@ Format options:
   --arrow-parens <always|avoid>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to always.
+  --brace-style <same-line|next-line>
+                           Placement of opening braces for code blocks.
+                           Defaults to next-line.
   --bracket-same-line      Put > of opening tags on the last line instead of on a new line.
                            Defaults to false.
   --no-bracket-spacing     Do not print spaces between brackets.
@@ -95,7 +98,7 @@ Format options:
 
 Config options:
 
-  --config <path>          Path to a Maculate configuration file (.prettierrc, package.json, prettier.config.js).
+  --config <path>          Path to a Prettier Next Line configuration file (.prettierrc, package.json, prettier.config.js).
   --no-config              Do not look for a configuration file.
   --config-precedence <cli-override|file-override|prefer-file>
                            Define in which order config files and CLI options should be evaluated.
@@ -148,7 +151,7 @@ Other options:
                            Defaults to false.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
   --support-info           Print support information as JSON.
-  -v, --version            Print Maculate version.
+  -v, --version            Print Prettier Next Line version.
 
 ",
   "write": [],
@@ -203,16 +206,16 @@ Valid options:
 exports[`throw error and show usage with something unexpected  1`] = `
 {
   "stderr": "",
-  "stdout": "Usage: maculate [options] [file/dir/glob ...]
+  "stdout": "Usage: prettier-next-line [options] [file/dir/glob ...]
 
 By default, output is written to stdout.
-Stdin is read if it is piped to Maculate and no files are given.
+Stdin is read if it is piped to Prettier Next Line and no files are given.
 
 Output options:
 
   -c, --check              Check if the given files are formatted, print a human-friendly summary
                            message and paths to unformatted files (see also --list-different).
-  -l, --list-different     Print the names of files that are different from Maculate's formatting (see also --check).
+  -l, --list-different     Print the names of files that are different from Prettier Next Line's formatting (see also --check).
   -w, --write              Edit files in-place. (Beware!)
 
 Format options:
@@ -220,6 +223,9 @@ Format options:
   --arrow-parens <always|avoid>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to always.
+  --brace-style <same-line|next-line>
+                           Placement of opening braces for code blocks.
+                           Defaults to next-line.
   --bracket-same-line      Put > of opening tags on the last line instead of on a new line.
                            Defaults to false.
   --no-bracket-spacing     Do not print spaces between brackets.
@@ -271,7 +277,7 @@ Format options:
 
 Config options:
 
-  --config <path>          Path to a Maculate configuration file (.prettierrc, package.json, prettier.config.js).
+  --config <path>          Path to a Prettier Next Line configuration file (.prettierrc, package.json, prettier.config.js).
   --no-config              Do not look for a configuration file.
   --config-precedence <cli-override|file-override|prefer-file>
                            Define in which order config files and CLI options should be evaluated.
@@ -324,7 +330,7 @@ Other options:
                            Defaults to false.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
   --support-info           Print support information as JSON.
-  -v, --version            Print Maculate version.
+  -v, --version            Print Prettier Next Line version.
 
 ",
   "write": [],

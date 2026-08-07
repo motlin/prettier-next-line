@@ -17,6 +17,7 @@ import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
+import { printBraceSeparator } from "./brace-style.js";
 
 /*
 - `MatchExpression` (Flow)
@@ -26,7 +27,8 @@ export function printMatch(path, options, print) {
   const { node } = path;
   return [
     group(["match (", indent([softline, print("argument")]), softline, ")"]),
-    " {",
+    printBraceSeparator(options),
+    "{",
     node.cases.length > 0
       ? indent([
           hardline,
@@ -60,7 +62,7 @@ export function printMatchCase(path, options, print) {
 
   const body =
     node.type === "MatchStatementCase"
-      ? [" ", print("body")]
+      ? [printBraceSeparator(options), print("body")]
       : indent([line, print("body"), ","]);
 
   return [

@@ -1,11 +1,13 @@
 import { printKey } from "./key.js";
 import { printDeclareToken } from "./miscellaneous.js";
 import { printObject } from "./object.js";
+import { printBraceSeparator } from "./brace-style.js";
 
 function printFlowEnumBody(path, options, print) {
   const { node } = path;
   return [
-    node.explicitType ? `of ${node.explicitType} ` : "",
+    node.explicitType ? `of ${node.explicitType}` : "",
+    printBraceSeparator(options),
     printObject(path, options, print),
   ];
 }
@@ -21,8 +23,9 @@ function printLegacyFlowEnumBody(path, options, print) {
             // `Body`
             -4,
           )
-          .toLowerCase()} `
+          .toLowerCase()}`
       : "",
+    printBraceSeparator(options),
     printObject(path, options, print),
   ];
 }
@@ -56,14 +59,21 @@ function printEnumMember(path, options, print) {
 - `EnumDeclaration`(flow)
 - `TSEnumDeclaration`(TypeScript)
 */
-function printEnumDeclaration(path, print) {
+function printEnumDeclaration(path, options, print) {
   const { node } = path;
+  const isTypeScriptEnum = node.type === "TSEnumDeclaration";
+  const hasFlowType =
+    node.body.explicitType || node.body.type === "EnumSymbolBody";
   return [
     printDeclareToken(path),
     node.const ? "const " : "",
     "enum ",
     print("id"),
-    " ",
+    isTypeScriptEnum
+      ? printBraceSeparator(options)
+      : hasFlowType
+        ? " "
+        : "",
     print("body"),
   ];
 }

@@ -13,7 +13,7 @@ describe("--cache option", () => {
   const dir = resolveDir("cli/cache");
   const defaultCacheFile = path.join(
     dir,
-    "node_modules/.cache/maculate/.maculate-cache",
+    "node_modules/.cache/prettier-next-line/.prettier-next-line-cache",
   );
 
   const nonDefaultCacheFileName = ".non-default-cache-file";
@@ -21,11 +21,13 @@ describe("--cache option", () => {
   const nonDefaultCacheFilePath = path.join(dir, nonDefaultCacheFileName);
   const prettierIgnorePath = path.join(dir, ".prettierignore");
 
-  const contentA = `function a() {
+  const contentA = `function a()
+{
   console.log("this is a.js")
 }
 `;
-  const contentB = `function b() {
+  const contentB = `function b()
+{
   console.log("this is b.js");
 }
 `;
@@ -121,7 +123,7 @@ describe("--cache option", () => {
   });
 
   describe("--cache-strategy metadata", () => {
-    it("creates default cache file named `node_modules/.cache/maculate/.maculate-cache`", async () => {
+    it("creates default cache file named `node_modules/.cache/prettier-next-line/.prettier-next-line-cache`", async () => {
       await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
         "code",
         "ENOENT",
@@ -426,7 +428,7 @@ describe("--cache option", () => {
   });
 
   describe("--cache-strategy content", () => {
-    it("creates default cache file named `node_modules/.cache/maculate/.maculate-cache`", async () => {
+    it("creates default cache file named `node_modules/.cache/prettier-next-line/.prettier-next-line-cache`", async () => {
       await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
         "code",
         "ENOENT",

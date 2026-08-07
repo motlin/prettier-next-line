@@ -10,6 +10,7 @@ import {
   printIfStatementConsequent,
 } from "./clause.js";
 import { printIfStatementCondition } from "./miscellaneous.js";
+import { isNextLineBraceStyle } from "./brace-style.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -34,7 +35,11 @@ function printIfStatement(path, options, print) {
 
   /** @type {Doc[]} */
   const parts = [opening];
-  let needSpace = isConsequentBlockStatement;
+  const isNextLine = isNextLineBraceStyle(options);
+  let needSpace = isConsequentBlockStatement && !isNextLine;
+  if (isConsequentBlockStatement && isNextLine) {
+    parts.push(hardline);
+  }
   if (!isConsequentBlockStatement) {
     parts.push(hardline);
     needSpace = false;

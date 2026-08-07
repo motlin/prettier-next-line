@@ -3,7 +3,8 @@
 exports[`apply editorconfig for stdin-filepath with a deep path  1`] = `
 {
   "stderr": "",
-  "stdout": "function f() {
+  "stdout": "function f()
+{
 	console.log("should be indented with a tab")
 }",
   "write": [],
@@ -13,7 +14,8 @@ exports[`apply editorconfig for stdin-filepath with a deep path  1`] = `
 exports[`apply editorconfig for stdin-filepath with a deep path  2`] = `
 {
   "stderr": "",
-  "stdout": "function f() {
+  "stdout": "function f()
+{
 	console.log("should be indented with a tab")
 }",
   "write": [],
@@ -23,7 +25,8 @@ exports[`apply editorconfig for stdin-filepath with a deep path  2`] = `
 exports[`apply editorconfig for stdin-filepath with nonexistent directory  1`] = `
 {
   "stderr": "",
-  "stdout": "function f() {
+  "stdout": "function f()
+{
 	console.log("should be indented with a tab")
 }",
   "write": [],
@@ -33,7 +36,8 @@ exports[`apply editorconfig for stdin-filepath with nonexistent directory  1`] =
 exports[`apply editorconfig for stdin-filepath with nonexistent file  1`] = `
 {
   "stderr": "",
-  "stdout": "function f() {
+  "stdout": "function f()
+{
 	console.log("should be indented with a tab")
 }",
   "write": [],
@@ -43,7 +47,8 @@ exports[`apply editorconfig for stdin-filepath with nonexistent file  1`] = `
 exports[`don’t apply editorconfig outside project for stdin-filepath with nonexistent directory  1`] = `
 {
   "stderr": "",
-  "stdout": "function f() {
+  "stdout": "function f()
+{
   console.log("should be indented with 2 spaces")
 }",
   "write": [],

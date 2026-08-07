@@ -4,6 +4,7 @@ import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { printStatementSequence } from "./statement-sequence.js";
+import { printBraceSeparator } from "./brace-style.js";
 
 /** @import {Doc} from "../../document/index.js" */
 
@@ -24,7 +25,7 @@ function printBlock(path, options, print) {
   const parts = [];
 
   if (node.type === "StaticBlock") {
-    parts.push("static ");
+    parts.push("static", printBraceSeparator(options));
   }
 
   parts.push("{");

@@ -20,6 +20,7 @@ const options = {
       },
     ],
   },
+  braceStyle: commonOptions.braceStyle,
   bracketSameLine: commonOptions.bracketSameLine,
   objectWrap: commonOptions.objectWrap,
   bracketSpacing: commonOptions.bracketSpacing,

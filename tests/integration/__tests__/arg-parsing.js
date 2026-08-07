@@ -55,7 +55,7 @@ describe("allow overriding flags", () => {
     ["--tab-width=1", "--tab-width=3", "--parser=babel"],
     { input: "function a() { b }" },
   ).test({
-    stdout: "function a() {\n   b;\n}",
+    stdout: "function a()\n{\n   b;\n}",
     status: 0,
   });
 });

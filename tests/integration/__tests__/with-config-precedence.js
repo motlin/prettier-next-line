@@ -1,12 +1,14 @@
 import { outdent } from "outdent";
 
 const TAB_WIDTH_3_OUTPUT = outdent`
-  function foo() {
+  function foo()
+  {
   ${" ".repeat(3)}return bar;
   }
 `;
 const TAB_WIDTH_5_OUTPUT = outdent`
-  function foo() {
+  function foo()
+  {
   ${" ".repeat(5)}return bar;
   }
 `;

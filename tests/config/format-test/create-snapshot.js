@@ -29,6 +29,7 @@ function printOptions(options) {
     filepath,
     errors,
     parser,
+    braceStyle,
 
     ...snapshotOptions
   } = options;

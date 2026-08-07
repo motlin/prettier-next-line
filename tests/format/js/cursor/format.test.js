@@ -59,9 +59,11 @@ test("doesn't insert second placeholder for nonexistent TypeAnnotation", async (
   ).toMatchObject({
     formatted:
       outdent`
-        foo("bar", (cb) => {
+        foo("bar", (cb) =>
+        {
           console.log("stuff");
-        });
+        },
+        );
       ` + "\n",
     cursorOffset: 25,
   });

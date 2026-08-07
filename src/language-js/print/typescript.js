@@ -162,7 +162,7 @@ function printTypescript(path, options, print, args) {
     case "TSNamespaceExportDeclaration":
       return ["export as namespace ", print("id"), printSemicolon(options)];
     case "TSEnumDeclaration":
-      return printEnumDeclaration(path, print);
+      return printEnumDeclaration(path, options, print);
     case "TSEnumBody":
       return printObject(path, options, print);
     case "TSEnumMember":

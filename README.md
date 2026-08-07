@@ -1,52 +1,65 @@
-# Maculate
+# Prettier Next Line
 
-Maculate is a thin fork of [Prettier](https://prettier.io) published under its
-own name. It provides the formatter core used by the Maculate plugin family,
-including [maculate-java](https://github.com/motlin/maculate-java).
+Prettier Next Line is a thin fork of
+[Prettier](https://github.com/prettier/prettier) with configurable opening-brace
+placement for JavaScript and TypeScript. It defaults to Allman-style,
+next-line braces.
 
 ## Installation
 
-```bash
-npm install --save-dev maculate
-```
-
-## Usage
-
-Check formatting without changing files:
+Install it directly:
 
 ```bash
-npx maculate --check .
+npm install --save-dev prettier-next-line
+npx prettier-next-line --write .
 ```
 
-Format files in place:
+Tools that require a package named `prettier`, including Spotless, can install
+it through an npm alias:
 
 ```bash
-npx maculate --write .
+npm install --save-dev prettier@npm:prettier-next-line
+npx prettier-next-line --write .
 ```
 
-Maculate retains Prettier's CLI, configuration, plugin API, and supported core
-languages. Existing Prettier documentation therefore describes the inherited
-behavior:
+## Brace style
 
-- [Configuration](https://prettier.io/docs/configuration)
-- [Options](https://prettier.io/docs/options)
-- [CLI](https://prettier.io/docs/cli)
-- [Plugin API](https://prettier.io/docs/plugins)
+Next-line braces are the default:
+
+```json
+{
+  "braceStyle": "next-line"
+}
+```
+
+Use Prettier's inherited K&R placement when needed:
+
+```json
+{
+  "braceStyle": "same-line"
+}
+```
+
+The option applies to JavaScript and TypeScript code blocks and declarations.
+It does not change object literals, imports, JSX, JSON, CSS, or other
+non-block braces.
 
 ## Java
 
-Install Maculate Java and load it explicitly:
+Use [prettier-java-next-line](https://github.com/motlin/prettier-java-next-line)
+for Java:
 
 ```bash
-npm install --save-dev maculate maculate-java
-npx maculate --check --plugin=maculate-java "**/*.java"
+npm install --save-dev \
+  prettier@npm:prettier-next-line \
+  prettier-java-next-line
+npx prettier-next-line --write --plugin=prettier-java-next-line "**/*.java"
 ```
 
 ## Upstream
 
-Maculate follows [prettier/prettier](https://github.com/prettier/prettier). The
-fork keeps its changes focused on Maculate's package identity and formatter
-behavior.
+Prettier Next Line tracks [prettier/prettier](https://github.com/prettier/prettier)
+and keeps fork-specific behavior focused on brace placement.
 
 ## Contributing
 

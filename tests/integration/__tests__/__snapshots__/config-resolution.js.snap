@@ -3,7 +3,8 @@
 exports[`accepts configuration from --config  1`] = `
 {
   "stderr": "",
-  "stdout": "function js() {
+  "stdout": "function js()
+{
  console.log("js/file.js should have tab width 8 (1 if CLI)")
 }",
   "write": [],

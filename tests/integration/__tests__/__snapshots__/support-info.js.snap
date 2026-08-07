@@ -98,6 +98,14 @@ exports[`API getSupportInfo() 1`] = `
       "default": "always",
       "type": "choice",
     },
+    "braceStyle": {
+      "choices": [
+        "same-line",
+        "next-line",
+      ],
+      "default": "next-line",
+      "type": "choice",
+    },
     "bracketSameLine": {
       "default": false,
       "type": "boolean",
@@ -807,6 +815,24 @@ exports[`CLI --support-info  1`] = `
       "default": "always",
       "description": "Include parentheses around a sole arrow function parameter.",
       "name": "arrowParens",
+      "pluginDefaults": {},
+      "type": "choice"
+    },
+    {
+      "category": "Common",
+      "choices": [
+        {
+          "description": "Put opening braces on the same line (K&R style).",
+          "value": "same-line"
+        },
+        {
+          "description": "Put opening braces on the next line (Allman style).",
+          "value": "next-line"
+        }
+      ],
+      "default": "next-line",
+      "description": "Placement of opening braces for code blocks.",
+      "name": "braceStyle",
       "pluginDefaults": {},
       "type": "choice"
     },

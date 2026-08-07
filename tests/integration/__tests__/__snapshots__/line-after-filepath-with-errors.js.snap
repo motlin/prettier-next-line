@@ -16,7 +16,8 @@ invalid-2.js
 invalid-2.unknown
 valid-1.js
 [[Clear text(process.stdout): valid-1.js]]
-function foo() {}",
+function foo()
+{}",
   "write": [],
 }
 `;

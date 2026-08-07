@@ -11,6 +11,7 @@ import {
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
 import { printKey } from "./key.js";
+import { printBraceSeparator } from "./brace-style.js";
 import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
@@ -84,7 +85,7 @@ function printFunction(path, options, print, args) {
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
     ]),
-    node.body ? " " : "",
+    node.body ? printBraceSeparator(options) : "",
     print("body"),
     node.declare || !node.body ? printSemicolon(options) : "",
   ];
@@ -166,7 +167,7 @@ function printMethodValue(path, options, print) {
   ];
 
   if (node.body) {
-    parts.push(" ", print("body"));
+    parts.push(printBraceSeparator(options), print("body"));
   } else {
     parts.push(printSemicolon(options));
   }

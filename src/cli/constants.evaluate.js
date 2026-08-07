@@ -10,10 +10,10 @@ const categoryOrder = [
 ];
 
 const usageSummary = outdent`
-  Usage: maculate [options] [file/dir/glob ...]
+  Usage: prettier-next-line [options] [file/dir/glob ...]
 
   By default, output is written to stdout.
-  Stdin is read if it is piped to Maculate and no files are given.
+  Stdin is read if it is piped to Prettier Next Line and no files are given.
 `;
 
 export { categoryOrder, usageSummary };

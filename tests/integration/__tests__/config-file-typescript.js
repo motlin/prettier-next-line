@@ -11,7 +11,8 @@ const getOutputTabWidth = (code) =>
 const code = "function foo() {return bar}";
 
 const TAB_WIDTH_3_OUTPUT = outdent`
-  function foo() {
+  function foo()
+  {
   ${" ".repeat(3)}return bar;
   }
 `;

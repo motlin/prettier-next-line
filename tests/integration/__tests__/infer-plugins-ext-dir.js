@@ -68,7 +68,8 @@ describe("infer file ext that supported by only plugins", () => {
         {
           // formatted with `tabWidth: 2`
           content: outdent`
-            function main() {
+            function main()
+            {
               console.log("Hello, World!");
             }\n
           `,
@@ -94,7 +95,8 @@ describe("infer file ext that supported by only plugins", () => {
         {
           // formatted with `tabWidth: 2`
           content: outdent`
-            function main() {
+            function main()
+            {
               console.log("Hello, World!");
             }\n
           `,

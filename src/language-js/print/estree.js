@@ -25,6 +25,7 @@ import { printAwaitExpression } from "./await-expression.js";
 import { printBinaryishExpression } from "./binaryish.js";
 import { printBindExpression } from "./bind-expression.js";
 import { printBlock } from "./block.js";
+import { printBraceSeparator } from "./brace-style.js";
 import { printCallExpression } from "./call-expression.js";
 import {
   printClass,
@@ -267,7 +268,12 @@ function printEstree(path, options, print, args) {
       return printForXStatement(path, options, print);
 
     case "DoExpression":
-      return [node.async ? "async " : "", "do ", print("body")];
+      return [
+        node.async ? "async " : "",
+        "do",
+        printBraceSeparator(options),
+        print("body"),
+      ];
     case "BreakStatement":
     case "ContinueStatement":
       return [
@@ -278,7 +284,13 @@ function printEstree(path, options, print, args) {
     case "LabeledStatement":
       return [
         print("label"),
-        `:${node.body.type === "EmptyStatement" && !hasComment(node.body, CommentCheckFlags.Leading) ? "" : " "}`,
+        ":",
+        node.body.type === "EmptyStatement" &&
+        !hasComment(node.body, CommentCheckFlags.Leading)
+          ? ""
+          : node.body.type === "BlockStatement"
+            ? printBraceSeparator(options)
+            : " ",
         print("body"),
       ];
     case "TryStatement":
@@ -324,7 +336,7 @@ function printEstree(path, options, print, args) {
       return "?";
 
     case "ModuleExpression":
-      return ["module ", print("body")];
+      return ["module", printBraceSeparator(options), print("body")];
 
     case "VoidPattern":
       return "void";

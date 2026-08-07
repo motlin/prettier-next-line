@@ -22,6 +22,10 @@ import { createTypeCheckFunction } from "../utilities/create-type-check-function
 import { isMemberExpression } from "../utilities/node-types.js";
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { printAssignment } from "./assignment.js";
+import {
+  isNextLineBraceStyle,
+  printBraceSeparator,
+} from "./brace-style.js";
 import { printClassMemberDecorators, printDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";
 import { printKey } from "./key.js";
@@ -151,7 +155,9 @@ function printClassWithoutDecorators(path, options, print) {
   Meanwhile, we are not going to put the `{` of interface body on a new line
   https://github.com/prettier/prettier/issues/18115
   */
-  if (!isPrintingInterface && groupMode && isNonEmptyClassBody(node.body)) {
+  if (isNextLineBraceStyle(options)) {
+    parts.push(printBraceSeparator(options));
+  } else if (!isPrintingInterface && groupMode && isNonEmptyClassBody(node.body)) {
     parts.push(ifBreak(hardline, " ", { groupId: heritageGroupId }));
   } else {
     parts.push(" ");

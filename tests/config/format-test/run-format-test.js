@@ -51,7 +51,8 @@ function runFormatTest(rawFixtures, explicitParsers, rawOptions) {
     path.dirname(url.fileURLToPath(importMeta.url)),
   );
 
-  let options = { ...rawOptions };
+  // Preserve upstream snapshots while focused fork tests cover our default.
+  let options = { braceStyle: "same-line", ...rawOptions };
 
   // `IS_ERROR_TEST` mean to watch errors like:
   // - syntax parser hasn't supported yet

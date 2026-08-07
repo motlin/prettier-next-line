@@ -1,5 +1,6 @@
 import { group } from "../../document/index.js";
 import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
+import { printBraceSeparator } from "./brace-style.js";
 
 /*
 - `TSModuleDeclaration` (TypeScript)
@@ -11,7 +12,9 @@ function printModuleDeclaration(path, options, print) {
     printDeclareToken(path),
     node.kind === "global" ? "" : `${node.kind} `,
     print("id"),
-    node.body ? [" ", group(print("body"))] : printSemicolon(options),
+    node.body
+      ? [printBraceSeparator(options), group(print("body"))]
+      : printSemicolon(options),
   ];
 }
 

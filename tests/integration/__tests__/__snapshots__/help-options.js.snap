@@ -17,6 +17,23 @@ Default: always",
 }
 `;
 
+exports[`show detailed usage with --help brace-style  1`] = `
+{
+  "stderr": "",
+  "stdout": "--brace-style <same-line|next-line>
+
+  Placement of opening braces for code blocks.
+
+Valid options:
+
+  same-line   Put opening braces on the same line (K&R style).
+  next-line   Put opening braces on the next line (Allman style).
+
+Default: next-line",
+  "write": [],
+}
+`;
+
 exports[`show detailed usage with --help bracket-same-line  1`] = `
 {
   "stderr": "",
@@ -118,7 +135,7 @@ exports[`show detailed usage with --help config  1`] = `
   "stderr": "",
   "stdout": "--config <path>
 
-  Path to a Maculate configuration file (.prettierrc, package.json, prettier.config.js).",
+  Path to a Prettier Next Line configuration file (.prettierrc, package.json, prettier.config.js).",
   "write": [],
 }
 `;
@@ -335,7 +352,7 @@ exports[`show detailed usage with --help list-different  1`] = `
   "stderr": "",
   "stdout": "-l, --list-different
 
-  Print the names of files that are different from Maculate's formatting (see also --check).",
+  Print the names of files that are different from Prettier Next Line's formatting (see also --check).",
   "write": [],
 }
 `;
@@ -686,7 +703,7 @@ exports[`show detailed usage with --help version  1`] = `
   "stderr": "",
   "stdout": "-v, --version
 
-  Print Maculate version.",
+  Print Prettier Next Line version.",
   "write": [],
 }
 `;

@@ -2,6 +2,22 @@ const CATEGORY_COMMON = "Common";
 
 // format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.evaluate.js
 const options = {
+  braceStyle: {
+    category: CATEGORY_COMMON,
+    type: "choice",
+    default: "next-line",
+    description: "Placement of opening braces for code blocks.",
+    choices: [
+      {
+        value: "same-line",
+        description: "Put opening braces on the same line (K&R style).",
+      },
+      {
+        value: "next-line",
+        description: "Put opening braces on the next line (Allman style).",
+      },
+    ],
+  },
   bracketSpacing: {
     category: CATEGORY_COMMON,
     type: "boolean",

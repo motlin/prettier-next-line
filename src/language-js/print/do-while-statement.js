@@ -4,11 +4,15 @@ import {
   printDoWhileStatementCondition,
   printSemicolon,
 } from "./miscellaneous.js";
+import { isNextLineBraceStyle } from "./brace-style.js";
 
 function printDoWhileStatement(path, options, print) {
   return [
     group(["do", printDoWhileStatementBody(path, options, print)]),
-    path.node.body.type === "BlockStatement" ? " " : hardline,
+    path.node.body.type === "BlockStatement" &&
+    !isNextLineBraceStyle(options)
+      ? " "
+      : hardline,
     "while (",
     printDoWhileStatementCondition(path, options, print),
     ")",

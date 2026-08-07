@@ -1,16 +1,30 @@
-import { indent, softline } from "../../document/index.js";
+import { hardline, indent, softline } from "../../document/index.js";
 import hasNewline from "../../utilities/has-newline.js";
 import { locEnd, locStart } from "../location/index.js";
 import { isBlockComment } from "../utilities/comment-types.js";
 import { hasComment } from "../utilities/comments.js";
+import {
+  isNextLineBraceStyle,
+  printBraceSeparator,
+} from "./brace-style.js";
 
 function printTryStatement(path, options, print) {
   const { node } = path;
   return [
-    "try ",
+    "try",
+    printBraceSeparator(options),
     print("block"),
-    node.handler ? [" ", print("handler")] : "",
-    node.finalizer ? [" finally ", print("finalizer")] : "",
+    node.handler
+      ? [isNextLineBraceStyle(options) ? hardline : " ", print("handler")]
+      : "",
+    node.finalizer
+      ? [
+          isNextLineBraceStyle(options) ? hardline : " ",
+          "finally",
+          printBraceSeparator(options),
+          print("finalizer"),
+        ]
+      : "",
   ];
 }
 
@@ -33,13 +47,14 @@ function printCatchClause(path, options, print) {
     return [
       "catch ",
       parameterHasComments
-        ? ["(", indent([softline, param]), softline, ") "]
-        : ["(", param, ") "],
+        ? ["(", indent([softline, param]), softline, ")"]
+        : ["(", param, ")"],
+      printBraceSeparator(options),
       print("body"),
     ];
   }
 
-  return ["catch ", print("body")];
+  return ["catch", printBraceSeparator(options), print("body")];
 }
 
 export { printCatchClause, printTryStatement };

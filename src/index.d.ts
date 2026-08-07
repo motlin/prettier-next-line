@@ -352,6 +352,7 @@ export interface RequiredOptions extends doc.printer.Options {
    * @default false
    */
   bracketSameLine: boolean;
+  braceStyle: "same-line" | "next-line";
   /**
    * Format only a segment of a file.
    * @default 0
