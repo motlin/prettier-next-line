@@ -1,6 +1,6 @@
 {
   "name": "prettier-next-line",
-  "version": "3.10.0-dev",
+  "version": "3.10.0-next-line.0",
   "description": "Prettier with configurable same-line and next-line braces",
   "bin": "./bin/prettier.cjs",
   "repository": "motlin/prettier-next-line",
