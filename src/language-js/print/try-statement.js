@@ -6,7 +6,7 @@ import { hasComment } from "../utilities/comments.js";
 import {
   isNextLineBraceStyle,
   printBraceSeparator,
-} from "./brace-style.js";
+} from "../../common/brace-style.js";
 
 function printTryStatement(path, options, print) {
   const { node } = path;

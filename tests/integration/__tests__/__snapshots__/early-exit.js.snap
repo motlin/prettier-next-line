@@ -45,7 +45,7 @@ Format options:
                            Include parentheses around a sole arrow function parameter.
                            Defaults to always.
   --brace-style <same-line|next-line>
-                           Placement of opening braces for code blocks.
+                           Placement of opening braces for structural constructs.
                            Defaults to next-line.
   --bracket-same-line      Put > of opening tags on the last line instead of on a new line.
                            Defaults to false.
@@ -224,7 +224,7 @@ Format options:
                            Include parentheses around a sole arrow function parameter.
                            Defaults to always.
   --brace-style <same-line|next-line>
-                           Placement of opening braces for code blocks.
+                           Placement of opening braces for structural constructs.
                            Defaults to next-line.
   --bracket-same-line      Put > of opening tags on the last line instead of on a new line.
                            Defaults to false.

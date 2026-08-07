@@ -7,6 +7,10 @@ import {
   line,
   softline,
 } from "../document/index.js";
+import {
+  isNextLineBraceStyle,
+  printBraceSeparator,
+} from "../common/brace-style.js";
 import { printDanglingComments } from "../main/comments/print.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
@@ -22,6 +26,7 @@ import { printVariableDefinitions } from "./print/variable-definitions.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
+  const useNextLineBraces = isNextLineBraceStyle(options);
 
   switch (node.kind) {
     case "Document":
@@ -42,7 +47,7 @@ function genericPrint(path, options, print) {
           : "",
         printVariableDefinitions(path, print),
         printDirectives(path, print),
-        !hasOperation && !hasName ? "" : " ",
+        !hasOperation && !hasName ? "" : printBraceSeparator(options),
         print("selectionSet"),
       ];
     }
@@ -55,7 +60,7 @@ function genericPrint(path, options, print) {
         " on ",
         print("typeCondition"),
         printDirectives(path, print),
-        " ",
+        printBraceSeparator(options),
         print("selectionSet"),
       ];
 
@@ -89,7 +94,7 @@ function genericPrint(path, options, print) {
             ])
           : "",
         printDirectives(path, print),
-        node.selectionSet ? " " : "",
+        node.selectionSet ? printBraceSeparator(options) : "",
         print("selectionSet"),
       ]);
 
@@ -152,22 +157,25 @@ function genericPrint(path, options, print) {
     case "ObjectValue": {
       const isEmpty = !isNonEmptyArray(node.fields);
       const bracketSpace = options.bracketSpacing && !isEmpty ? " " : "";
-      return group([
+      const object = group([
         "{",
-        bracketSpace,
+        useNextLineBraces ? "" : bracketSpace,
         printDanglingComments(path, options, { indent: true }),
         isEmpty
           ? ""
           : [
               indent([
-                softline,
+                useNextLineBraces ? hardline : softline,
                 join([ifBreak("", ", "), softline], path.map(print, "fields")),
               ]),
             ],
-        softline,
+        useNextLineBraces ? hardline : softline,
         ifBreak("", bracketSpace),
         "}",
       ]);
+      return useNextLineBraces && path.parent.kind !== "ListValue"
+        ? [hardline, object]
+        : object;
     }
 
     case "ObjectField":
@@ -229,7 +237,8 @@ function genericPrint(path, options, print) {
 
       if (isNonEmptyArray(node.fields)) {
         parts.push([
-          " {",
+          printBraceSeparator(options),
+          "{",
           indent([
             hardline,
             join(hardline, printSequence(path, options, print, "fields")),
@@ -308,7 +317,8 @@ function genericPrint(path, options, print) {
         printDirectives(path, print),
         isNonEmptyArray(node.values)
           ? [
-              " {",
+              printBraceSeparator(options),
+              "{",
               indent([
                 hardline,
                 join(hardline, printSequence(path, options, print, "values")),
@@ -342,7 +352,8 @@ function genericPrint(path, options, print) {
         printDirectives(path, print),
         ...(isNonEmptyArray(node.operationTypes)
           ? [
-              " {",
+              printBraceSeparator(options),
+              "{",
               indent([
                 hardline,
                 join(
@@ -361,7 +372,8 @@ function genericPrint(path, options, print) {
         printDescription(path, options, print),
         "schema",
         printDirectives(path, print),
-        " {",
+        printBraceSeparator(options),
+        "{",
         isNonEmptyArray(node.operationTypes)
           ? indent([
               hardline,
@@ -391,7 +403,7 @@ function genericPrint(path, options, print) {
         "...",
         node.typeCondition ? [" on ", print("typeCondition")] : "",
         printDirectives(path, print),
-        " ",
+        printBraceSeparator(options),
         print("selectionSet"),
       ];
 

@@ -25,7 +25,7 @@ import { printAssignment } from "./assignment.js";
 import {
   isNextLineBraceStyle,
   printBraceSeparator,
-} from "./brace-style.js";
+} from "../../common/brace-style.js";
 import { printClassMemberDecorators, printDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";
 import { printKey } from "./key.js";

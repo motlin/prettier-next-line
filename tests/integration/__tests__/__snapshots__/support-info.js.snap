@@ -815,25 +815,29 @@ exports[`CLI --support-info  1`] = `
       "default": "always",
       "description": "Include parentheses around a sole arrow function parameter.",
       "name": "arrowParens",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "choice"
     },
     {
       "category": "Common",
       "choices": [
         {
-          "description": "Put opening braces on the same line (K&R style).",
+          "description": "Put opening braces on the same line as preceding syntax.",
           "value": "same-line"
         },
         {
-          "description": "Put opening braces on the next line (Allman style).",
+          "description": "Put opening braces on their own next line.",
           "value": "next-line"
         }
       ],
       "default": "next-line",
-      "description": "Placement of opening braces for code blocks.",
+      "description": "Placement of opening braces for structural constructs.",
       "name": "braceStyle",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "choice"
     },
     {
@@ -841,7 +845,9 @@ exports[`CLI --support-info  1`] = `
       "default": false,
       "description": "Put > of opening tags on the last line instead of on a new line.",
       "name": "bracketSameLine",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "boolean"
     },
     {
@@ -850,7 +856,9 @@ exports[`CLI --support-info  1`] = `
       "description": "Print spaces between brackets.",
       "name": "bracketSpacing",
       "oppositeDescription": "Do not print spaces between brackets.",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "boolean"
     },
     {
@@ -858,7 +866,9 @@ exports[`CLI --support-info  1`] = `
       "default": false,
       "description": "Check whether the file's first docblock comment contains '@noprettier' or '@noformat' to determine if it should be formatted.",
       "name": "checkIgnorePragma",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "boolean"
     },
     {
@@ -866,8 +876,15 @@ exports[`CLI --support-info  1`] = `
       "default": -1,
       "description": "Print (to stderr) where a cursor at the given position would move to after formatting.",
       "name": "cursorOffset",
-      "pluginDefaults": {},
-      "range": { "end": null, "start": -1, "step": 1 },
+      "pluginDefaults":
+      {
+      },
+      "range":
+      {
+        "end": null,
+        "start": -1,
+        "step": 1
+      },
       "type": "int"
     },
     {
@@ -885,7 +902,9 @@ exports[`CLI --support-info  1`] = `
       "default": "auto",
       "description": "Control how Prettier formats quoted code embedded in the file.",
       "name": "embeddedLanguageFormatting",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "choice"
     },
     {
@@ -911,7 +930,9 @@ exports[`CLI --support-info  1`] = `
       "default": "lf",
       "description": "Which end of line characters to apply.",
       "name": "endOfLine",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "choice"
     },
     {
@@ -929,7 +950,9 @@ exports[`CLI --support-info  1`] = `
       "default": "end",
       "description": "Where to print operators when binary expressions wrap lines.",
       "name": "experimentalOperatorPosition",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "choice"
     },
     {
@@ -938,14 +961,18 @@ exports[`CLI --support-info  1`] = `
       "description": "Use curious ternaries, with the question mark after the condition.",
       "name": "experimentalTernaries",
       "oppositeDescription": "Default behavior of ternaries; keep question marks on the same line as the consequent.",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "boolean"
     },
     {
       "category": "Special",
       "description": "Specify the input filepath. This will be used to do parser inference.",
       "name": "filepath",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "path"
     },
     {
@@ -967,7 +994,9 @@ exports[`CLI --support-info  1`] = `
       "default": "css",
       "description": "How to handle whitespaces in HTML.",
       "name": "htmlWhitespaceSensitivity",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "choice"
     },
     {
@@ -975,7 +1004,9 @@ exports[`CLI --support-info  1`] = `
       "default": false,
       "description": "Insert @format pragma into file's first docblock comment.",
       "name": "insertPragma",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "boolean"
     },
     {
@@ -983,7 +1014,9 @@ exports[`CLI --support-info  1`] = `
       "default": false,
       "description": "Use single quotes in JSX.",
       "name": "jsxSingleQuote",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "boolean"
     },
     {
@@ -1001,41 +1034,120 @@ exports[`CLI --support-info  1`] = `
       "default": "preserve",
       "description": "How to wrap object literals.",
       "name": "objectWrap",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "choice"
     },
     {
       "category": "Global",
       "choices": [
-        { "description": "Flow", "value": "flow" },
-        { "description": "JavaScript", "value": "babel" },
-        { "description": "Flow", "value": "babel-flow" },
-        { "description": "TypeScript", "value": "babel-ts" },
-        { "description": "TypeScript", "value": "typescript" },
-        { "description": "JavaScript", "value": "acorn" },
-        { "description": "JavaScript", "value": "espree" },
-        { "description": "JavaScript", "value": "meriyah" },
-        { "description": "CSS", "value": "css" },
-        { "description": "Less", "value": "less" },
-        { "description": "SCSS", "value": "scss" },
-        { "description": "JSON", "value": "json" },
-        { "description": "JSON5", "value": "json5" },
-        { "description": "JSON with Comments", "value": "jsonc" },
-        { "description": "JSON.stringify", "value": "json-stringify" },
-        { "description": "GraphQL", "value": "graphql" },
-        { "description": "Markdown", "value": "markdown" },
-        { "description": "MDX", "value": "mdx" },
-        { "description": "Vue", "value": "vue" },
-        { "description": "YAML", "value": "yaml" },
-        { "description": "Ember / Handlebars", "value": "glimmer" },
-        { "description": "HTML", "value": "html" },
-        { "description": "Angular", "value": "angular" },
-        { "description": "Lightning Web Components", "value": "lwc" },
-        { "description": "MJML", "value": "mjml" }
+        {
+          "description": "Flow",
+          "value": "flow"
+        },
+        {
+          "description": "JavaScript",
+          "value": "babel"
+        },
+        {
+          "description": "Flow",
+          "value": "babel-flow"
+        },
+        {
+          "description": "TypeScript",
+          "value": "babel-ts"
+        },
+        {
+          "description": "TypeScript",
+          "value": "typescript"
+        },
+        {
+          "description": "JavaScript",
+          "value": "acorn"
+        },
+        {
+          "description": "JavaScript",
+          "value": "espree"
+        },
+        {
+          "description": "JavaScript",
+          "value": "meriyah"
+        },
+        {
+          "description": "CSS",
+          "value": "css"
+        },
+        {
+          "description": "Less",
+          "value": "less"
+        },
+        {
+          "description": "SCSS",
+          "value": "scss"
+        },
+        {
+          "description": "JSON",
+          "value": "json"
+        },
+        {
+          "description": "JSON5",
+          "value": "json5"
+        },
+        {
+          "description": "JSON with Comments",
+          "value": "jsonc"
+        },
+        {
+          "description": "JSON.stringify",
+          "value": "json-stringify"
+        },
+        {
+          "description": "GraphQL",
+          "value": "graphql"
+        },
+        {
+          "description": "Markdown",
+          "value": "markdown"
+        },
+        {
+          "description": "MDX",
+          "value": "mdx"
+        },
+        {
+          "description": "Vue",
+          "value": "vue"
+        },
+        {
+          "description": "YAML",
+          "value": "yaml"
+        },
+        {
+          "description": "Ember / Handlebars",
+          "value": "glimmer"
+        },
+        {
+          "description": "HTML",
+          "value": "html"
+        },
+        {
+          "description": "Angular",
+          "value": "angular"
+        },
+        {
+          "description": "Lightning Web Components",
+          "value": "lwc"
+        },
+        {
+          "description": "MJML",
+          "value": "mjml"
+        }
       ],
       "description": "Which parser to use.",
       "name": "parser",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "choice"
     },
     {
@@ -1044,7 +1156,9 @@ exports[`CLI --support-info  1`] = `
       "default": [],
       "description": "Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.",
       "name": "plugins",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "path"
     },
     {
@@ -1052,8 +1166,15 @@ exports[`CLI --support-info  1`] = `
       "default": 80,
       "description": "The line length where Prettier will try wrap.",
       "name": "printWidth",
-      "pluginDefaults": {},
-      "range": { "end": null, "start": 0, "step": 1 },
+      "pluginDefaults":
+      {
+      },
+      "range":
+      {
+        "end": null,
+        "start": 0,
+        "step": 1
+      },
       "type": "int"
     },
     {
@@ -1063,13 +1184,21 @@ exports[`CLI --support-info  1`] = `
           "description": "Wrap prose if it exceeds the print width.",
           "value": "always"
         },
-        { "description": "Do not wrap prose.", "value": "never" },
-        { "description": "Wrap prose as-is.", "value": "preserve" }
+        {
+          "description": "Do not wrap prose.",
+          "value": "never"
+        },
+        {
+          "description": "Wrap prose as-is.",
+          "value": "preserve"
+        }
       ],
       "default": "preserve",
       "description": "How to wrap prose.",
       "name": "proseWrap",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "choice"
     },
     {
@@ -1091,7 +1220,9 @@ exports[`CLI --support-info  1`] = `
       "default": "as-needed",
       "description": "Change when properties in objects are quoted.",
       "name": "quoteProps",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "choice"
     },
     {
@@ -1099,8 +1230,15 @@ exports[`CLI --support-info  1`] = `
       "default": null,
       "description": "Format code ending at a given character offset (exclusive).\\nThe range will extend forwards to the end of the selected statement.",
       "name": "rangeEnd",
-      "pluginDefaults": {},
-      "range": { "end": null, "start": 0, "step": 1 },
+      "pluginDefaults":
+      {
+      },
+      "range":
+      {
+        "end": null,
+        "start": 0,
+        "step": 1
+      },
       "type": "int"
     },
     {
@@ -1108,8 +1246,15 @@ exports[`CLI --support-info  1`] = `
       "default": 0,
       "description": "Format code starting at a given character offset.\\nThe range will extend backwards to the start of the first line containing the selected statement.",
       "name": "rangeStart",
-      "pluginDefaults": {},
-      "range": { "end": null, "start": 0, "step": 1 },
+      "pluginDefaults":
+      {
+      },
+      "range":
+      {
+        "end": null,
+        "start": 0,
+        "step": 1
+      },
       "type": "int"
     },
     {
@@ -1117,7 +1262,9 @@ exports[`CLI --support-info  1`] = `
       "default": false,
       "description": "Require either '@prettier' or '@format' to be present in the file's first docblock comment in order for it to be formatted.",
       "name": "requirePragma",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "boolean"
     },
     {
@@ -1126,7 +1273,9 @@ exports[`CLI --support-info  1`] = `
       "description": "Print semicolons.",
       "name": "semi",
       "oppositeDescription": "Do not print semicolons, except at the beginning of lines which may need them.",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "boolean"
     },
     {
@@ -1134,7 +1283,9 @@ exports[`CLI --support-info  1`] = `
       "default": false,
       "description": "Enforce single attribute per line in HTML, Vue and JSX.",
       "name": "singleAttributePerLine",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "boolean"
     },
     {
@@ -1142,7 +1293,9 @@ exports[`CLI --support-info  1`] = `
       "default": false,
       "description": "Use single quotes instead of double quotes.",
       "name": "singleQuote",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "boolean"
     },
     {
@@ -1150,8 +1303,15 @@ exports[`CLI --support-info  1`] = `
       "default": 2,
       "description": "Number of spaces per indentation level.",
       "name": "tabWidth",
-      "pluginDefaults": {},
-      "range": { "end": null, "start": 0, "step": 1 },
+      "pluginDefaults":
+      {
+      },
+      "range":
+      {
+        "end": null,
+        "start": 0,
+        "step": 1
+      },
       "type": "int"
     },
     {
@@ -1165,12 +1325,17 @@ exports[`CLI --support-info  1`] = `
           "description": "Trailing commas where valid in ES5 (objects, arrays, etc.)",
           "value": "es5"
         },
-        { "description": "No trailing commas.", "value": "none" }
+        {
+          "description": "No trailing commas.",
+          "value": "none"
+        }
       ],
       "default": "all",
       "description": "Print trailing commas wherever possible when multi-line.",
       "name": "trailingComma",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "choice"
     },
     {
@@ -1178,7 +1343,9 @@ exports[`CLI --support-info  1`] = `
       "default": false,
       "description": "Indent with tabs instead of spaces.",
       "name": "useTabs",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "boolean"
     },
     {
@@ -1186,7 +1353,9 @@ exports[`CLI --support-info  1`] = `
       "default": false,
       "description": "Indent script and style tags in Vue files.",
       "name": "vueIndentScriptAndStyle",
-      "pluginDefaults": {},
+      "pluginDefaults":
+      {
+      },
       "type": "boolean"
     }
   ]

@@ -1,4 +1,5 @@
 import { hardline, indent, join } from "../../document/index.js";
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import printString from "../../utilities/print-string.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { getRaw } from "../utilities.js";
@@ -25,18 +26,26 @@ function printJson(path, options, print) {
         "]",
       ];
     }
-    case "ObjectExpression":
-      return node.properties.length === 0
-        ? "{}"
-        : [
-            "{",
-            indent([
+    case "ObjectExpression": {
+      const useNextLineBraces = isNextLineBraceStyle(options);
+      const object =
+        node.properties.length === 0
+          ? useNextLineBraces
+            ? ["{", hardline, "}"]
+            : "{}"
+          : [
+              "{",
+              indent([
+                hardline,
+                join([",", hardline], path.map(print, "properties")),
+              ]),
               hardline,
-              join([",", hardline], path.map(print, "properties")),
-            ]),
-            hardline,
-            "}",
-          ];
+              "}",
+            ];
+      return useNextLineBraces && path.parent.type === "ObjectProperty"
+        ? [hardline, object]
+        : object;
+    }
     case "ObjectProperty":
       return [print("key"), ": ", print("value")];
     case "UnaryExpression":

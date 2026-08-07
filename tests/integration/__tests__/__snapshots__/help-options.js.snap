@@ -22,12 +22,12 @@ exports[`show detailed usage with --help brace-style  1`] = `
   "stderr": "",
   "stdout": "--brace-style <same-line|next-line>
 
-  Placement of opening braces for code blocks.
+  Placement of opening braces for structural constructs.
 
 Valid options:
 
-  same-line   Put opening braces on the same line (K&R style).
-  next-line   Put opening braces on the next line (Allman style).
+  same-line   Put opening braces on the same line as preceding syntax.
+  next-line   Put opening braces on their own next line.
 
 Default: next-line",
   "write": [],

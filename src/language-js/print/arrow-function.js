@@ -31,7 +31,7 @@ import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahea
 import { printReturnType, shouldPrintParamsWithoutParens } from "./function.js";
 import { printFunctionParameters } from "./function-parameters.js";
 import { printTrailingComma } from "./miscellaneous.js";
-import { isNextLineBraceStyle } from "./brace-style.js";
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"

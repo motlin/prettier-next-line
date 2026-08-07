@@ -6,6 +6,7 @@ import {
   line,
   softline,
 } from "../../document/index.js";
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
@@ -70,6 +71,7 @@ function printTypeScriptMappedTypeModifier(tokenNode, keyword) {
 
 function printTypeScriptMappedType(path, options, print) {
   const { node } = path;
+  const useNextLineBraces = isNextLineBraceStyle(options);
   // Break after `{` like `printObject`
   let shouldBreak = false;
   if (options.objectWrap === "preserve") {
@@ -101,11 +103,11 @@ function printTypeScriptMappedType(path, options, print) {
     );
   }
 
-  return group(
+  const content = group(
     [
       "{",
       indent([
-        options.bracketSpacing ? line : softline,
+        useNextLineBraces ? hardline : options.bracketSpacing ? line : softline,
         ...danglingCommentsDoc,
         group([
           node.readonly
@@ -134,11 +136,13 @@ function printTypeScriptMappedType(path, options, print) {
         ]),
         options.semi ? ifBreak(";") : "",
       ]),
-      options.bracketSpacing ? line : softline,
+      useNextLineBraces ? hardline : options.bracketSpacing ? line : softline,
       "}",
     ],
-    { shouldBreak },
+    { shouldBreak: useNextLineBraces || shouldBreak },
   );
+
+  return useNextLineBraces ? [hardline, content] : content;
 }
 
 export { printFlowMappedTypeProperty, printTypeScriptMappedType };

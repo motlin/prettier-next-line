@@ -1,4 +1,5 @@
 import * as assert from "#universal/assert";
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import {
   group,
   hardline,
@@ -72,6 +73,7 @@ function printObject(path, options, print) {
   const isEnumBody = node.type === "TSEnumBody" || isFlowEnumBody;
   const isImportAttributes = isPrintingImportAttributes(node);
   const hasUnknownMembers = isFlowEnumBody && node.hasUnknownMembers;
+  const useNextLineBraces = isNextLineBraceStyle(options);
 
   const property = isEnumBody
     ? "members"
@@ -81,6 +83,7 @@ function printObject(path, options, print) {
   const children = node[property];
 
   const shouldBreak =
+    useNextLineBraces ||
     isEnumBody ||
     (node.type === "ObjectPattern" &&
       parent.type !== "FunctionDeclaration" &&
@@ -140,13 +143,18 @@ function printObject(path, options, print) {
   if (parts.length === 0) {
     content = group([
       "{",
+      useNextLineBraces ? hardline : "",
       printDanglingCommentsInList(path, options),
       "}",
       printOptionalToken(path),
       printTypeAnnotationProperty(path, print),
     ]);
   } else {
-    const spacing = options.bracketSpacing ? line : softline;
+    const spacing = useNextLineBraces
+      ? hardline
+      : options.bracketSpacing
+        ? line
+        : softline;
     content = [
       "{",
       indent([spacing, ...parts]),
@@ -156,6 +164,10 @@ function printObject(path, options, print) {
       printOptionalToken(path),
       printTypeAnnotationProperty(path, print),
     ];
+  }
+
+  if (useNextLineBraces && shouldBreakBeforeObject(path)) {
+    content = [hardline, content];
   }
 
   // If we inline the object as first argument of the parent, we don't want
@@ -194,6 +206,38 @@ function printObject(path, options, print) {
   }
 
   return group(content, { shouldBreak });
+}
+
+function shouldBreakBeforeObject(path) {
+  const { node, parent } = path;
+
+  if (!parent || isPrintingFlowEnumBody(node) || node.type === "TSEnumBody") {
+    return false;
+  }
+
+  if (
+    node.type === "ObjectExpression" &&
+    (parent.type === "ReturnStatement" ||
+      parent.type === "ThrowStatement" ||
+      parent.type === "YieldExpression")
+  ) {
+    return false;
+  }
+
+  if (isPrintingImportAttributes(node)) {
+    return true;
+  }
+
+  return [
+    "AssignmentExpression",
+    "AssignmentPattern",
+    "ClassPrivateProperty",
+    "ClassProperty",
+    "ObjectProperty",
+    "Property",
+    "PropertyDefinition",
+    "VariableDeclarator",
+  ].includes(parent.type);
 }
 
 function hasNewLineAfterOpeningBrace(node, firstProperty, options) {

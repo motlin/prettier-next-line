@@ -7,7 +7,7 @@ import {
   getComments,
   hasComment,
 } from "../utilities/comments.js";
-import { printBraceSeparator } from "./brace-style.js";
+import { printBraceSeparator } from "../../common/brace-style.js";
 
 function shouldPrintLeadingHardline(node, options) {
   const leadingComments = getComments(node, CommentCheckFlags.Leading);

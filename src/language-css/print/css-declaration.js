@@ -7,6 +7,10 @@ import {
   removeLines,
   softline,
 } from "../../document/index.js";
+import {
+  isNextLineBraceStyle,
+  printBraceSeparator,
+} from "../../common/brace-style.js";
 import { locEnd } from "../loc.js";
 import {
   hasComposesNode,
@@ -100,12 +104,17 @@ function printCssDeclaration(path, options, print) {
   }
 
   if (node.nodes) {
+    const useNextLineBraces = isNextLineBraceStyle(options);
     parts.push([
-      " {",
+      printBraceSeparator(options),
+      "{",
       node.nodes.length > 0
-        ? indent([softline, printSequence(path, options, print)])
+        ? indent([
+            useNextLineBraces ? hardline : softline,
+            printSequence(path, options, print),
+          ])
         : "",
-      softline,
+      useNextLineBraces ? hardline : softline,
       "}",
     ]);
   } else if (!(

@@ -8,6 +8,7 @@ import {
   line,
   softline,
 } from "../../document/index.js";
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import {
   printComments,
   printDanglingComments,
@@ -17,7 +18,7 @@ import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
-import { printBraceSeparator } from "./brace-style.js";
+import { printBraceSeparator } from "../../common/brace-style.js";
 
 /*
 - `MatchExpression` (Flow)
@@ -147,17 +148,22 @@ export function printMatchPattern(path, options, print) {
 
 function printMatchObjectPattern(path, options, print) {
   const { node } = path;
+  const useNextLineBraces = isNextLineBraceStyle(options);
   const properties = path.map(print, "properties");
   if (node.rest) {
     properties.push(print("rest"));
   }
-  return group([
+  const pattern = group([
     "{",
-    indent([softline, join([",", line], properties)]),
+    indent([
+      useNextLineBraces ? hardline : softline,
+      join([",", line], properties),
+    ]),
     node.rest ? "" : ifBreak(","),
-    softline,
+    useNextLineBraces ? hardline : softline,
     "}",
   ]);
+  return useNextLineBraces ? [hardline, pattern] : pattern;
 }
 
 const isSimpleMatchPattern = createTypeCheckFunction([

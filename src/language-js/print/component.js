@@ -1,7 +1,7 @@
 import { group } from "../../document/index.js";
 import { printFunctionParameters } from "./function-parameters.js";
 import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
-import { printBraceSeparator } from "./brace-style.js";
+import { printBraceSeparator } from "../../common/brace-style.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"

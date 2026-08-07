@@ -2,7 +2,8 @@
   "overrides": [
     {
       "files": "*.as-js-file",
-      "options": {
+      "options":
+      {
         "parser": "babel"
       }
     }

@@ -1,10 +1,11 @@
 import { hardline, indent } from "../../document/index.js";
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { printStatementSequence } from "./statement-sequence.js";
-import { printBraceSeparator } from "./brace-style.js";
+import { printBraceSeparator } from "../../common/brace-style.js";
 
 /** @import {Doc} from "../../document/index.js" */
 
@@ -32,6 +33,12 @@ function printBlock(path, options, print) {
   if (bodyDoc) {
     parts.push(indent([hardline, bodyDoc]), hardline);
   } else {
+    if (isNextLineBraceStyle(options)) {
+      parts.push(hardline);
+      parts.push("}");
+      return parts;
+    }
+
     const parentParent = path.grandparent;
     if (!(
       parent.type === "ArrowFunctionExpression" ||

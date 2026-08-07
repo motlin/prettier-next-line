@@ -11,6 +11,10 @@ import {
   replaceEndOfLine,
   softline,
 } from "../document/index.js";
+import {
+  isNextLineBraceStyle,
+  printBraceSeparator,
+} from "../common/brace-style.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import printString from "../utilities/print-string.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
@@ -48,6 +52,7 @@ import {
 
 function genericPrint(path, options, print) {
   const { node } = path;
+  const useNextLineBraces = isNextLineBraceStyle(options);
 
   switch (node.type) {
     case "css-root": {
@@ -87,7 +92,7 @@ function genericPrint(path, options, print) {
               lastLineHasInlineComment(node.selector.value)
                 ? line
                 : node.selector
-                  ? " "
+                  ? printBraceSeparator(options)
                   : "",
               "{",
               node.nodes.length > 0
@@ -136,11 +141,15 @@ function genericPrint(path, options, print) {
             node.raws.between.trim() ? node.raws.between.trim() + " " : "",
             node.nodes
               ? [
+                  useNextLineBraces ? hardline : "",
                   "{",
                   node.nodes.length > 0
-                    ? indent([softline, printSequence(path, options, print)])
+                    ? indent([
+                        useNextLineBraces ? hardline : softline,
+                        printSequence(path, options, print),
+                      ])
                     : "",
-                  softline,
+                  useNextLineBraces ? hardline : softline,
                   "}",
                 ]
               : "",
@@ -207,12 +216,15 @@ function genericPrint(path, options, print) {
                       typeof node.params === "string" &&
                       lastLineHasInlineComment(node.params))
                   ? line
-                  : " ",
+                  : printBraceSeparator(options),
               "{",
               node.nodes.length > 0
-                ? indent([softline, printSequence(path, options, print)])
+                ? indent([
+                    useNextLineBraces ? hardline : softline,
+                    printSequence(path, options, print),
+                  ])
                 : "",
-              softline,
+              useNextLineBraces ? hardline : softline,
               "}",
             ]
           : isTemplatePlaceholderNodeWithoutSemiColon ||

@@ -4,7 +4,8 @@ const javascriptInput =
   "function example(value) { if (value) { return true; } else { return false; } }";
 
 test("defaults JavaScript block braces to the next line", async () => {
-  expect(await format(javascriptInput, { parser: "babel" })).toBe(`function example(value)
+  expect(await format(javascriptInput, { parser: "babel" }))
+    .toBe(`function example(value)
 {
   if (value)
   {
@@ -47,4 +48,192 @@ test("defaults TypeScript class and method braces to the next line", async () =>
   }
 }
 `);
+});
+
+test("defaults JavaScript object, pattern, import, and type braces to the next line", async () => {
+  expect(
+    await format(
+      `import { alpha } from "example";
+const value = { nested: { enabled: true }, empty: {} };
+const { nested } = value;
+type Settings = { enabled: boolean };`,
+      { parser: "typescript" },
+    ),
+  ).toBe(`import
+{
+  alpha,
+} from "example";
+const value =
+{
+  nested:
+  {
+    enabled: true,
+  },
+  empty:
+  {
+  },
+};
+const
+{
+  nested,
+} = value;
+type Settings =
+{
+  enabled: boolean;
+};
+`);
+});
+
+test("defaults nested JSON object braces to the next line", async () => {
+  expect(
+    await format('{"outer":{"empty":{},"enabled":true}}', {
+      parser: "json",
+    }),
+  ).toBe(`{
+  "outer":
+  {
+    "empty":
+    {
+    },
+    "enabled": true
+  }
+}
+`);
+});
+
+test("defaults CSS rule braces to the next line", async () => {
+  expect(
+    await format(".alpha { color: red; } @media (width > 1px) { .beta {} }", {
+      parser: "css",
+    }),
+  ).toBe(`.alpha
+{
+  color: red;
+}
+@media (width > 1px)
+{
+  .beta
+  {
+  }
+}
+`);
+});
+
+test("defaults GraphQL selection and object value braces to the next line", async () => {
+  expect(
+    await format(
+      "query Example { viewer { settings(value: { enabled: true }) { id } } }",
+      { parser: "graphql" },
+    ),
+  ).toBe(`query Example
+{
+  viewer
+  {
+    settings(
+      value:
+      {
+        enabled: true
+      }
+    )
+    {
+      id
+    }
+  }
+}
+`);
+});
+
+test("defaults YAML flow mapping braces to the next line", async () => {
+  expect(
+    await format("settings: {enabled: true, nested: {value: 1}, empty: {}}", {
+      parser: "yaml",
+    }),
+  ).toBe(`settings:
+  {
+    enabled: true,
+    nested:
+      {
+        value: 1,
+      },
+    empty:
+      {
+      },
+  }
+`);
+});
+
+test("aligns empty braces and preserves syntax-sensitive return objects", async () => {
+  expect(
+    await format(
+      "function empty() {} const value = {}; const result = call({ enabled: true }); function returns() { return { enabled: true }; }",
+      { parser: "babel" },
+    ),
+  ).toBe(`function empty()
+{
+}
+const value =
+{
+};
+const result = call(
+  {
+    enabled: true,
+  },
+);
+function returns()
+{
+  return {
+    enabled: true,
+  };
+}
+`);
+});
+
+test("covers JSON-stringify, SCSS, Less, GraphQL definitions, and Angular blocks", async () => {
+  expect(
+    await Promise.all([
+      format('{"outer":{"empty":{}}}', { parser: "json-stringify" }),
+      format(".alpha { font: { size: 1px; } }", { parser: "scss" }),
+      format(".mixin() { color: red; }", { parser: "less" }),
+      format("schema { query: Query } type Query { viewer: User }", {
+        parser: "graphql",
+      }),
+      format("@if (ready) { <div></div> } @else { <span></span> }", {
+        parser: "angular",
+      }),
+    ]),
+  ).toStrictEqual([
+    '{\n  "outer":\n  {\n    "empty":\n    {\n    }\n  }\n}\n',
+    ".alpha\n{\n  font:\n  {\n    size: 1px;\n  }\n}\n",
+    ".mixin()\n{\n  color: red;\n}\n",
+    "schema\n{\n  query: Query\n}\ntype Query\n{\n  viewer: User\n}\n",
+    "@if (ready)\n{\n  <div></div>\n} @else\n{\n  <span></span>\n}\n",
+  ]);
+});
+
+test("same-line preserves inherited formatting across structural brace printers", async () => {
+  const options = { braceStyle: "same-line" };
+  expect(
+    await Promise.all([
+      format("const value = { enabled: true };", {
+        ...options,
+        parser: "babel",
+      }),
+      format('{"outer":{"enabled":true}}', {
+        ...options,
+        parser: "json",
+      }),
+      format(".alpha { color: red; }", { ...options, parser: "css" }),
+      format("query Example { viewer { id } }", {
+        ...options,
+        parser: "graphql",
+      }),
+      format("settings: {enabled: true}", { ...options, parser: "yaml" }),
+    ]),
+  ).toStrictEqual([
+    "const value = { enabled: true };\n",
+    '{ "outer": { "enabled": true } }\n',
+    ".alpha {\n  color: red;\n}\n",
+    "query Example {\n  viewer {\n    id\n  }\n}\n",
+    "settings: { enabled: true }\n",
+  ]);
 });

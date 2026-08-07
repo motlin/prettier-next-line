@@ -4,7 +4,7 @@ import {
   printDoWhileStatementCondition,
   printSemicolon,
 } from "./miscellaneous.js";
-import { isNextLineBraceStyle } from "./brace-style.js";
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 
 function printDoWhileStatement(path, options, print) {
   return [

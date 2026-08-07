@@ -1,4 +1,4 @@
-import { hardline } from "../../document/index.js";
+import { hardline } from "../document/index.js";
 
 function isNextLineBraceStyle(options) {
   return options.braceStyle === "next-line";

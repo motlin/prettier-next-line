@@ -120,7 +120,7 @@ describe("infer file ext that supported by only plugins", () => {
       `,
       write: [
         {
-          content: "export default {};\n",
+          content: "export default {\n};\n",
           filename: "dir/.prettierrc.mjs",
         },
         {
@@ -154,7 +154,7 @@ describe("infer file ext that supported by only plugins", () => {
       `,
       write: [
         {
-          content: "export default {};\n",
+          content: "export default {\n};\n",
           filename: "dir/.prettierrc.mjs",
         },
         {
@@ -191,7 +191,8 @@ describe("infer file ext that supported by only plugins", () => {
               overrides: [
                 {
                   files: ["dir/*.foo"],
-                  options: {
+                  options:
+                  {
                     plugins: ["../../plugins/extensions/plugin.cjs"],
                   },
                 },

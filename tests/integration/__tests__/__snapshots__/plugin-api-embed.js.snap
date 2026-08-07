@@ -2,7 +2,9 @@
 
 exports[`embed API in plugins with new signature should work 1`] = `
 "abcdef
-{ "foo": "bar" }
+{
+  "foo": "bar"
+}
 1234
 "
 `;

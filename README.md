@@ -40,9 +40,11 @@ Use Prettier's inherited K&R placement when needed:
 }
 ```
 
-The option applies to JavaScript and TypeScript code blocks and declarations.
-It does not change object literals, imports, JSX, JSON, CSS, or other
-non-block braces.
+The option applies wherever a structural opening brace can safely move to its
+own line, including JavaScript and TypeScript blocks, declarations, object and
+type literals, imports and exports, JSON objects, CSS-family rules, GraphQL
+blocks and object values, YAML flow mappings, and Angular control-flow blocks.
+Token-bound delimiters such as `${...}`, `#{...}`, and `{{...}}` stay intact.
 
 ## Java
 

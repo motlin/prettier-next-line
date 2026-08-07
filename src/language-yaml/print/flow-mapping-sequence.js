@@ -5,18 +5,26 @@ import {
   line,
   softline,
 } from "../../document/index.js";
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import { hasEndComments, isEmptyNode } from "../utilities.js";
 import { alignWithSpaces, printNextEmptyLine } from "./misc.js";
 
 function printFlowMapping(path, options, print) {
   const { node } = path;
   const isMapping = node.type === "flowMapping";
+  const useNextLineBraces = isMapping && isNextLineBraceStyle(options);
   const openMarker = isMapping ? "{" : "[";
   const closeMarker = isMapping ? "}" : "]";
 
+  if (useNextLineBraces && node.children.length === 0) {
+    return [openMarker, hardline, closeMarker];
+  }
+
   /** @type {softline | line} */
   let bracketSpacing = softline;
-  if (isMapping && node.children.length > 0 && options.bracketSpacing) {
+  if (useNextLineBraces) {
+    bracketSpacing = hardline;
+  } else if (isMapping && node.children.length > 0 && options.bracketSpacing) {
     bracketSpacing = line;
   }
   const lastItem = node.children.at(-1);
@@ -30,7 +38,9 @@ function printFlowMapping(path, options, print) {
     alignWithSpaces(options.tabWidth, [
       bracketSpacing,
       printChildren(path, options, print),
-      options.trailingComma === "none" ? "" : ifBreak(","),
+      node.children.length === 0 || options.trailingComma === "none"
+        ? ""
+        : ifBreak(","),
       hasEndComments(node)
         ? [hardline, join(hardline, path.map(print, "endComments"))]
         : "",

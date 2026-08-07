@@ -4,6 +4,7 @@ const CATEGORY_HTML = "HTML";
 
 // format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.evaluate.js
 const options = {
+  braceStyle: commonOptions.braceStyle,
   bracketSameLine: commonOptions.bracketSameLine,
   htmlWhitespaceSensitivity: {
     category: CATEGORY_HTML,

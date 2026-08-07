@@ -25,7 +25,7 @@ import { printAwaitExpression } from "./await-expression.js";
 import { printBinaryishExpression } from "./binaryish.js";
 import { printBindExpression } from "./bind-expression.js";
 import { printBlock } from "./block.js";
-import { printBraceSeparator } from "./brace-style.js";
+import { printBraceSeparator } from "../../common/brace-style.js";
 import { printCallExpression } from "./call-expression.js";
 import {
   printClass,

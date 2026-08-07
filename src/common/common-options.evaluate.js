@@ -6,15 +6,15 @@ const options = {
     category: CATEGORY_COMMON,
     type: "choice",
     default: "next-line",
-    description: "Placement of opening braces for code blocks.",
+    description: "Placement of opening braces for structural constructs.",
     choices: [
       {
         value: "same-line",
-        description: "Put opening braces on the same line (K&R style).",
+        description: "Put opening braces on the same line as preceding syntax.",
       },
       {
         value: "next-line",
-        description: "Put opening braces on the next line (Allman style).",
+        description: "Put opening braces on their own next line.",
       },
     ],
   },

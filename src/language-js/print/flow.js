@@ -10,7 +10,7 @@ import { isMethod } from "../utilities/is-method.js";
 import { printArray } from "./array.js";
 import { printArrayType } from "./array-type.js";
 import { printBinaryCastExpression } from "./binary-cast-expression.js";
-import { printBraceSeparator } from "./brace-style.js";
+import { printBraceSeparator } from "../../common/brace-style.js";
 import {
   printClass,
   printClassBody,

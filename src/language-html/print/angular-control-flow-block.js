@@ -6,6 +6,10 @@ import {
   line,
   softline,
 } from "../../document/index.js";
+import {
+  isNextLineBraceStyle,
+  printBraceSeparator,
+} from "../../common/brace-style.js";
 import { hasPrettierIgnore } from "../utilities/index.js";
 import { ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS } from "./angular-control-flow-block-settings.evaluate.js";
 import { printChildren } from "./children.js";
@@ -38,7 +42,7 @@ function printAngularControlFlowBlock(path, options, print) {
   }
 
   if (!isSwitchFallthroughCase(node)) {
-    docs.push(" {");
+    docs.push(printBraceSeparator(options), "{");
 
     const shouldPrintCloseBracket = shouldCloseBlock(node);
     if (node.children.length > 0) {
@@ -49,7 +53,7 @@ function printAngularControlFlowBlock(path, options, print) {
         docs.push(hardline, "}");
       }
     } else if (shouldPrintCloseBracket) {
-      docs.push("}");
+      docs.push(isNextLineBraceStyle(options) ? hardline : "", "}");
     }
   }
 

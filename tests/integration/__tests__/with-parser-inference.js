@@ -23,13 +23,13 @@ describe("infers parser from filename", () => {
   test("json from .prettierrc", async () => {
     expect(
       await prettier.format("  {   }  ", { filepath: "x/y/.prettierrc" }),
-    ).toBe("{}\n");
+    ).toBe("{\n}\n");
   });
 
   test("json from .stylelintrc", async () => {
     expect(
       await prettier.format("  {   }  ", { filepath: "x/y/.stylelintrc" }),
-    ).toBe("{}\n");
+    ).toBe("{\n}\n");
   });
 
   test("yaml from .stylelintrc", async () => {
@@ -63,7 +63,8 @@ describe("infers parser from filename", () => {
     ).toBe(
       outdent`
         {
-          "jsc": {
+          "jsc":
+          {
             // Requires v1.2.50 or upper and requires target to be es2016 or upper.
             "keepClassNames": false
           }
@@ -77,7 +78,7 @@ describe("infers parser from filename", () => {
       await prettier.format("  {  '*':   'your-cmd'  }  ", {
         filepath: "/path/to/.lintstagedrc",
       }),
-    ).toBe('{ "*": "your-cmd" }\n');
+    ).toBe('{\n  "*": "your-cmd"\n}\n');
   });
 
   test("yaml from .lintstagedrc", async () => {

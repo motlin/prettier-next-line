@@ -7,6 +7,7 @@ import {
   ifBreak,
   line,
 } from "../../document/index.js";
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import {
   hasEndComments,
   hasLeadingComments,
@@ -50,6 +51,8 @@ function printMappingItem(path, options, print) {
   }
 
   const printedValue = print("value");
+  const shouldBreakBeforeFlowMapping =
+    isNextLineBraceStyle(options) && value.content?.type === "flowMapping";
   if (isEmptyMappingKey) {
     return [": ", alignWithSpaces(2, printedValue)];
   }
@@ -79,7 +82,13 @@ function printMappingItem(path, options, print) {
     isAbsolutelyPrintedAsSingleLineNode(value.content, options) &&
     isAbsolutelyPrintedAsSingleLineNode(key.content, options)
   ) {
-    return [printedKey, spaceBeforeColon, ": ", printedValue];
+    return [
+      printedKey,
+      spaceBeforeColon,
+      ":",
+      shouldBreakBeforeFlowMapping ? hardline : " ",
+      printedValue,
+    ];
   }
 
   const groupId = Symbol("mappingKey");
@@ -119,7 +128,9 @@ function printMappingItem(path, options, print) {
   ) {
     implicitMappingValueParts.push(hardline);
   } else if (value.content) {
-    implicitMappingValueParts.push(line);
+    implicitMappingValueParts.push(
+      shouldBreakBeforeFlowMapping ? hardline : line,
+    );
   } else if (hasTrailingComment(value)) {
     implicitMappingValueParts.push(" ");
   }

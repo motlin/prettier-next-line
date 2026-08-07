@@ -95,7 +95,10 @@ exports[`--write with unknown path and no parser specific file  1`] = `
 
 exports[`Interpreters  1`] = `
 {
-  "stdout": "{ "ignored": false, "inferredParser": "babel" }",
+  "stdout": "{
+  "ignored": false,
+  "inferredParser": "babel"
+}",
 }
 `;
 

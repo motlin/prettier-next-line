@@ -7,6 +7,7 @@ import {
   removeLines,
   softline,
 } from "../../document/index.js";
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
@@ -167,6 +168,7 @@ function printModuleSpecifiers(path, options, print) {
 
   /** @type{Doc[]} */
   const parts = [" "];
+  const useNextLineBraces = isNextLineBraceStyle(options);
 
   if (isNonEmptyArray(node.specifiers)) {
     const standaloneSpecifiers = [];
@@ -204,31 +206,41 @@ function printModuleSpecifiers(path, options, print) {
         standaloneSpecifiers.length > 0 ||
         node.specifiers.some((node) => hasComment(node));
 
-      if (canBreak) {
+      if (canBreak || useNextLineBraces) {
         parts.push(
           group([
+            useNextLineBraces ? hardline : "",
             "{",
             indent([
-              options.bracketSpacing ? line : softline,
+              useNextLineBraces
+                ? hardline
+                : options.bracketSpacing
+                  ? line
+                  : softline,
               join([",", line], groupedSpecifiers),
             ]),
             printTrailingComma(options),
-            options.bracketSpacing ? line : softline,
+            useNextLineBraces
+              ? hardline
+              : options.bracketSpacing
+                ? line
+                : softline,
             "}",
           ]),
         );
       } else {
         parts.push([
+          useNextLineBraces ? hardline : "",
           "{",
-          options.bracketSpacing ? " " : "",
+          useNextLineBraces ? hardline : options.bracketSpacing ? " " : "",
           ...groupedSpecifiers,
-          options.bracketSpacing ? " " : "",
+          useNextLineBraces ? hardline : options.bracketSpacing ? " " : "",
           "}",
         ]);
       }
     }
   } else {
-    parts.push("{}");
+    parts.push(useNextLineBraces ? [hardline, "{", hardline, "}"] : "{}");
   }
   return parts;
 }

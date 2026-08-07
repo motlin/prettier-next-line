@@ -98,7 +98,12 @@ describe("API", () => {
 
     expect(
       await formatDoc(indentIfBreak(group(["1", line, "2"]), { groupId: "Q" })),
-    ).toBe('indentIfBreak(group(["1", line, "2"]), { groupId: "Q" })');
+    ).toBe(`indentIfBreak(
+  group(["1", line, "2"]),
+  {
+    groupId: "Q",
+  },
+)`);
 
     expect(await formatDoc(label("foo", group(["1", line, "2"])))).toBe(
       'label("foo", group(["1", line, "2"]))',

@@ -1,4 +1,15 @@
-import { group, indent, join, line, softline } from "../../document/index.js";
+import {
+  group,
+  hardline,
+  indent,
+  join,
+  line,
+  softline,
+} from "../../document/index.js";
+import {
+  isNextLineBraceStyle,
+  printBraceSeparator,
+} from "../../common/brace-style.js";
 import { printClosingTagEnd, printOpeningTagStart } from "./tag.js";
 
 /*
@@ -33,10 +44,11 @@ function printAngularIcuCase(path, options, print) {
 
   return [
     node.value,
-    " {",
+    printBraceSeparator(options),
+    "{",
     group([
       indent([
-        softline,
+        isNextLineBraceStyle(options) ? hardline : softline,
         path.map(({ node, isLast }) => {
           const parts = [print()];
 
@@ -53,7 +65,7 @@ function printAngularIcuCase(path, options, print) {
           return parts;
         }, "expression"),
       ]),
-      softline,
+      isNextLineBraceStyle(options) ? hardline : softline,
     ]),
     "}",
   ];

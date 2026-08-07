@@ -9,6 +9,7 @@ import {
   softline,
   willBreak,
 } from "../../document/index.js";
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import {
   getCallArguments,
   getCallArgumentSelector,
@@ -105,6 +106,10 @@ function printCallArguments(path, options, print) {
       ["(", indent([line, ...printedArguments]), trailingComma, line, ")"],
       { shouldBreak: true },
     );
+  }
+
+  if (isNextLineBraceStyle(options) && args.some(isObjectExpression)) {
+    return allArgsBrokenOut();
   }
 
   if (

@@ -11,7 +11,7 @@ import {
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
 import { printKey } from "./key.js";
-import { printBraceSeparator } from "./brace-style.js";
+import { printBraceSeparator } from "../../common/brace-style.js";
 import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 

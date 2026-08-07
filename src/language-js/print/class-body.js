@@ -6,6 +6,7 @@ import {
   line,
   softline,
 } from "../../document/index.js";
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
@@ -34,6 +35,7 @@ function printClassBody(path, options, print) {
   const isFlowTypeAnnotation = node.type === "ObjectTypeAnnotation";
   const isFlowRecordDeclaration = node.type === "RecordDeclarationBody";
   const isObjectType = !isClassBody(path);
+  const useNextLineBraces = isNextLineBraceStyle(options);
   const separator = isObjectType ? line : hardline;
   const hasDanglingComments = hasComment(node, CommentCheckFlags.Dangling);
 
@@ -115,16 +117,25 @@ function printClassBody(path, options, print) {
 
     let content;
     if (parts.length === 0) {
-      content = openingBrace + closingBrace;
+      content = useNextLineBraces
+        ? [openingBrace, hardline, closingBrace]
+        : openingBrace + closingBrace;
     } else {
-      const spacing =
-        !options.bracketSpacing || (isEmpty && !shouldBreak) ? softline : line;
+      const spacing = useNextLineBraces
+        ? hardline
+        : !options.bracketSpacing || (isEmpty && !shouldBreak)
+          ? softline
+          : line;
       content = [
         openingBrace,
         indent([spacing, ...parts]),
         spacing,
         closingBrace,
       ];
+    }
+
+    if (useNextLineBraces) {
+      content = [hardline, content];
     }
 
     // If we inline the object as first argument of the parent, we don't want
@@ -152,7 +163,11 @@ function printClassBody(path, options, print) {
 
   return [
     openingBrace,
-    parts.length > 0 ? [indent([hardline, parts]), hardline] : "",
+    parts.length > 0
+      ? [indent([hardline, parts]), hardline]
+      : useNextLineBraces
+        ? hardline
+        : "",
     closingBrace,
   ];
 }
