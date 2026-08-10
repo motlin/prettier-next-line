@@ -66,13 +66,10 @@ function createPackageJsonBuilder({ process }) {
         )?.output;
 
         assert.ok(typeof bin === "string");
-        return [name, `./${bin}`];
+        return [name, bin];
       });
 
-      packageJson.bin =
-        typeof original.bin === "string"
-          ? rewrittenBinEntries[0][1]
-          : Object.fromEntries(rewrittenBinEntries);
+      packageJson.bin = Object.fromEntries(rewrittenBinEntries);
     }
 
     if (process) {

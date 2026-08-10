@@ -8344,7 +8344,7 @@ __metadata:
     yaml-unist-parser: "npm:3.2.0"
     yuku-parser: "npm:0.8.3"
   bin:
-    prettier-next-line: ./bin/prettier.cjs
+    prettier-next-line: bin/prettier.cjs
   languageName: unknown
   linkType: soft
 

@@ -64,7 +64,7 @@ function generatePackageJson(packageJson, { packageConfig }) {
     },
     scripts: {
       prepublishOnly:
-        "node -e \"assert.equal(require('.').version, require('..').version)\"",
+        "node -e \"assert.equal(require('.').version, require('../../package.json').version)\"",
     },
   };
 }
