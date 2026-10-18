@@ -1,6 +1,6 @@
 {
   "name": "prettier-next-line",
-  "version": "3.9.8",
+  "version": "3.9.9",
   "description": "Prettier with configurable same-line and next-line braces",
   "bin": "bin/prettier.cjs",
   "repository": {
@@ -184,7 +184,7 @@
     "node-style-text": "2.1.2",
     "npm-run-all2": "9.0.3",
     "open-editor": "6.0.0",
-    "prettier": "3.9.7",
+    "prettier": "3.9.8",
     "pretty-bytes": "7.1.1",
     "pretty-ms": "9.3.0",
     "puppeteer": "25.7.0",
