@@ -1,3 +1,11 @@
+# 3.9.11
+
+Fork-only release of prettier-next-line on top of Prettier 3.9.10.
+
+#### Next-line braces: Keep comments before object braces stable across format passes
+
+A comment directly above or before a next-line `{` no longer gains a blank line on every pass, and a comment on the operator line moves onto its own line above the brace. A type union that starts with an object and has a leading comment now prints one member per line, matching oxfmt-next-line.
+
 # 3.9.10
 
 [diff](https://github.com/prettier/prettier/compare/3.9.9...3.9.10)
