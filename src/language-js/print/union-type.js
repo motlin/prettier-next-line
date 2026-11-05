@@ -1,3 +1,4 @@
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import {
   align,
   group,
@@ -7,7 +8,12 @@ import {
   line,
   softline,
 } from "../../document/index.js";
-import { printComments } from "../../main/comments/print.js";
+import {
+  printComments,
+  printLeadingComments,
+} from "../../main/comments/print.js";
+import hasNewline from "../../utilities/has-newline.js";
+import { locEnd } from "../location/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
@@ -34,7 +40,7 @@ function printUnionType(path, options, print, args) {
   //   a: string
   // } | null | void
   // should be inlined and not be printed in the multi-line variant
-  if (shouldHugUnionType(node)) {
+  if (shouldHugUnionType(node, options)) {
     return join(" | ", path.map(print, "types"));
   }
 
@@ -46,6 +52,17 @@ function printUnionType(path, options, print, args) {
   // | B
   // | C
 
+  // Under next-line braces, a leading comment that doesn't end its line follows the first `|`
+  // (`| /* c */` then `{`), like oxfmt-next-line.
+  const useNextLineBraces = isNextLineBraceStyle(options);
+  const followsFirstBar = (comment) =>
+    useNextLineBraces &&
+    comment.leading &&
+    !hasNewline(options.originalText, locEnd(comment));
+  const commentsAfterFirstBar = useNextLineBraces
+    ? printLeadingComments(path, options, { filter: followsFirstBar })
+    : "";
+
   // We want to align the children but without its comment, so it looks like
   // | child1
   // // comment
@@ -54,7 +71,7 @@ function printUnionType(path, options, print, args) {
   let printed = group(
     path.map(({ isFirst }) => {
       const bar = isFirst ? ifBreak("| ") : [line, "| "];
-      const typeDoc = print();
+      const typeDoc = isFirst ? [commentsAfterFirstBar, print()] : print();
       if (hasComment(path.node, CommentCheckFlags.Leading)) {
         return [bar, align(2, printComments(path, typeDoc, options))];
       }
@@ -63,8 +80,10 @@ function printUnionType(path, options, print, args) {
     }, "types"),
   );
 
-  if (shouldUnionTypePrintOwnComments(path)) {
-    printed = printComments(path, printed, options);
+  if (shouldUnionTypePrintOwnComments(path, options)) {
+    printed = printComments(path, printed, options, {
+      filter: (comment) => !followsFirstBar(comment),
+    });
   }
 
   if (needsParentheses(path, options)) {

@@ -246,9 +246,35 @@ test("keeps a comment directly above a next-line object brace stable", async () 
       "const g =\n  // c\n  {\n    a: 1,\n  };\nconst h =\n  /* c */\n  {\n    a: 1,\n  };\n",
     ],
     [
-      "type E =\n  // c\n  { a: 1 } | null;\ntype F =\n  // c\n  { a: 1 };\ntype M =\n  // c\n  { [K in X]: 1 };\n",
+      "type F =\n  // c\n  { a: 1 };\ntype M =\n  // c\n  { [K in X]: 1 };\n",
       "typescript",
-      "type E =\n  // c\n  {\n    a: 1;\n  } | null;\ntype F =\n  // c\n  {\n    a: 1;\n  };\ntype M =\n  // c\n  {\n    [K in X]: 1;\n  };\n",
+      "type F =\n  // c\n  {\n    a: 1;\n  };\ntype M =\n  // c\n  {\n    [K in X]: 1;\n  };\n",
+    ],
+    // Matches oxfmt-next-line: a comment before a union that starts with an object breaks it one member per line.
+    [
+      "type C = /* multi\n * line */ { a: 1 } | null;\ntype D = /* c */ { a: 1 } | null;\ntype E =\n  // c\n  { a: 1 } | null;\n",
+      "typescript",
+      "type C =\n  | /* multi\n     * line */\n    {\n      a: 1;\n    }\n  | null;\ntype D =\n  | /* c */\n    {\n      a: 1;\n    }\n  | null;\ntype E =\n  // c\n  |\n    {\n      a: 1;\n    }\n  | null;\n",
+    ],
+  ];
+  for (const [input, parser, expected] of cases) {
+    const firstPass = await format(input, { parser });
+    expect(firstPass).toBe(expected);
+    expect(await format(firstPass, { parser })).toBe(firstPass);
+  }
+});
+
+test("breaks after the operator when a block comment precedes a next-line object brace", async () => {
+  const cases = [
+    [
+      "const x = /* c */ { a: 1 };\nx = /* c */ { a: 1 };\nconst o = { k: /* c */ { a: 1 } };\n",
+      "babel",
+      "const x =\n  /* c */\n  {\n    a: 1,\n  };\nx =\n  /* c */\n  {\n    a: 1,\n  };\nconst o =\n{\n  k:\n    /* c */\n    {\n      a: 1,\n    },\n};\n",
+    ],
+    [
+      "type M1 = /* c */ { a: 1 };\n",
+      "typescript",
+      "type M1 =\n  /* c */\n  {\n    a: 1;\n  };\n",
     ],
   ];
   for (const [input, parser, expected] of cases) {

@@ -1,3 +1,4 @@
+import { isNextLineBraceStyle } from "../../common/brace-style.js";
 import {
   canBreak,
   cleanDoc,
@@ -25,6 +26,8 @@ import {
   isMemberExpression,
   isNonNullExpression,
   isNumericLiteral,
+  isObjectExpression,
+  isObjectType,
   isStringLiteral,
   isTypeAlias,
   isUnionType,
@@ -140,9 +143,17 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
 
   if (
     isHeadOfLongChain ||
-    (isUnionType(rightNode) && !shouldHugUnionType(rightNode)) ||
+    (isUnionType(rightNode) && !shouldHugUnionType(rightNode, options)) ||
     hasLeadingOwnLineComment(options.originalText, rightNode) ||
-    hasComment(rightNode, CommentCheckFlags.Leading, isIndentableBlockComment)
+    hasComment(
+      rightNode,
+      CommentCheckFlags.Leading,
+      isIndentableBlockComment,
+    ) ||
+    // A comment left on the operator line would end up before the next-line `{` and move on the next pass.
+    (isNextLineBraceStyle(options) &&
+      (isObjectExpression(rightNode) || isObjectType(rightNode)) &&
+      hasComment(rightNode, CommentCheckFlags.Leading))
   ) {
     return "break-after-operator";
   }

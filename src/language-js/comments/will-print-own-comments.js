@@ -54,7 +54,7 @@ function willPrintOwnComments(path, options) {
   }
 
   if (isUnionType(node)) {
-    return shouldUnionTypePrintOwnComments(path);
+    return shouldUnionTypePrintOwnComments(path, options);
   }
 
   if (isJsxElement(node)) {
