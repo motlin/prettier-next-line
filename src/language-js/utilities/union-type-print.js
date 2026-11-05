@@ -45,10 +45,12 @@ function shouldHugUnionType(node, options) {
       node,
       CommentCheckFlags.Leading,
       (comment) =>
+        // A line comment moves off the `=` line too.
+        !isBlockComment(comment) ||
         hasNewline(options.originalText, locStart(comment), {
           backwards: true,
         }) ||
-        (isBlockComment(comment) && comment.value.includes("\n")),
+        comment.value.includes("\n"),
     )
   ) {
     return false;
