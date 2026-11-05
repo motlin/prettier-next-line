@@ -252,9 +252,9 @@ test("keeps a comment directly above a next-line object brace stable", async () 
     ],
     // Matches oxfmt-next-line: a comment before a union that starts with an object breaks it one member per line.
     [
-      "type C = /* multi\n * line */ { a: 1 } | null;\ntype D = /* c */ { a: 1 } | null;\ntype E =\n  // c\n  { a: 1 } | null;\n",
+      "type C = /* multi\n * line */ { a: 1 } | null;\ntype D = /* c */ { a: 1 } | null;\ntype E =\n  // c\n  { a: 1 } | null;\ntype G = // c\n  { a: 1 } | null;\n",
       "typescript",
-      "type C =\n  | /* multi\n     * line */\n    {\n      a: 1;\n    }\n  | null;\ntype D =\n  | /* c */\n    {\n      a: 1;\n    }\n  | null;\ntype E =\n  // c\n  |\n    {\n      a: 1;\n    }\n  | null;\n",
+      "type C =\n  | /* multi\n     * line */\n    {\n      a: 1;\n    }\n  | null;\ntype D =\n  | /* c */\n    {\n      a: 1;\n    }\n  | null;\ntype E =\n  // c\n  |\n    {\n      a: 1;\n    }\n  | null;\ntype G =\n  // c\n  |\n    {\n      a: 1;\n    }\n  | null;\n",
     ],
   ];
   for (const [input, parser, expected] of cases) {
