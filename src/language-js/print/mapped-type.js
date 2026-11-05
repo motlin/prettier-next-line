@@ -15,6 +15,7 @@ import { isLineComment } from "../utilities/comment-types.js";
 import { CommentCheckFlags, getComments } from "../utilities/comments.js";
 import { stripComments } from "../utilities/strip-comments.js";
 import { printClassMemberSemicolon } from "./class.js";
+import { printNextLineBraceBreak } from "./next-line-brace.js";
 
 /**
 @import {Doc} from "../../document/index.js"
@@ -142,7 +143,9 @@ function printTypeScriptMappedType(path, options, print) {
     { shouldBreak: useNextLineBraces || shouldBreak },
   );
 
-  return useNextLineBraces ? [hardline, content] : content;
+  return useNextLineBraces
+    ? [printNextLineBraceBreak(path, options), content]
+    : content;
 }
 
 export { printFlowMappedTypeProperty, printTypeScriptMappedType };

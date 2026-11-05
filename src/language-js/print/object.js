@@ -27,6 +27,7 @@ import {
   printOptionalToken,
   printTrailingComma,
 } from "./miscellaneous.js";
+import { printNextLineBraceBreak } from "./next-line-brace.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @import {Doc} from "../../document/index.js" */
@@ -167,7 +168,7 @@ function printObject(path, options, print) {
   }
 
   if (useNextLineBraces && shouldBreakBeforeObject(path)) {
-    content = [hardline, content];
+    content = [printNextLineBraceBreak(path, options), content];
   }
 
   // If we inline the object as first argument of the parent, we don't want

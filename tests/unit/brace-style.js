@@ -237,3 +237,23 @@ test("same-line preserves inherited formatting across structural brace printers"
     "settings: { enabled: true }\n",
   ]);
 });
+
+test("keeps a comment directly above a next-line object brace stable", async () => {
+  const cases = [
+    [
+      "const g =\n  // c\n  { a: 1 };\nconst h =\n  /* c */\n  { a: 1 };\n",
+      "babel",
+      "const g =\n  // c\n  {\n    a: 1,\n  };\nconst h =\n  /* c */\n  {\n    a: 1,\n  };\n",
+    ],
+    [
+      "type E =\n  // c\n  { a: 1 } | null;\ntype F =\n  // c\n  { a: 1 };\ntype M =\n  // c\n  { [K in X]: 1 };\n",
+      "typescript",
+      "type E =\n  // c\n  {\n    a: 1;\n  } | null;\ntype F =\n  // c\n  {\n    a: 1;\n  };\ntype M =\n  // c\n  {\n    [K in X]: 1;\n  };\n",
+    ],
+  ];
+  for (const [input, parser, expected] of cases) {
+    const firstPass = await format(input, { parser });
+    expect(firstPass).toBe(expected);
+    expect(await format(firstPass, { parser })).toBe(firstPass);
+  }
+});

@@ -21,6 +21,7 @@ import { createTypeCheckFunction } from "../utilities/create-type-check-function
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import { printSemicolon, printTrailingComma } from "./miscellaneous.js";
+import { printNextLineBraceBreak } from "./next-line-brace.js";
 
 /*
 - `ClassBody`
@@ -135,7 +136,7 @@ function printClassBody(path, options, print) {
     }
 
     if (useNextLineBraces) {
-      content = [hardline, content];
+      content = [printNextLineBraceBreak(path, options), content];
     }
 
     // If we inline the object as first argument of the parent, we don't want
