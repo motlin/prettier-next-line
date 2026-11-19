@@ -1,6 +1,6 @@
 {
   "repository": "prettier/prettier",
   "branch": "main",
-  "commit": "1172b82c295c4f889fd787dc6c78c3e194ebf353",
-  "release": "3.9.10"
+  "commit": "deda65fd47c285b974e2a4397f26a33cfc1746b8",
+  "release": "3.10.1"
 }

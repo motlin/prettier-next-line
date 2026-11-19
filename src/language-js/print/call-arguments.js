@@ -29,6 +29,8 @@ import {
   isBinaryish,
   isCallExpression,
   isCallLikeExpression,
+  isExternalModuleReference,
+  isImportType,
   isJsxElement,
   isObjectExpression,
   isRegExpLiteral,
@@ -48,6 +50,9 @@ import {
 - `CallExpression`
 - `TSImportType` (TypeScript)
 - `TSExternalModuleReference` (TypeScript)
+- `ImportType` (Flow)
+- `ExternalModuleReference` (Flow)
+- `DeclareClassExtendsCall` (Flow)
 */
 function printCallArguments(path, options, print) {
   const { node } = path;
@@ -94,10 +99,13 @@ function printCallArguments(path, options, print) {
   const trailingComma =
     // Angular does not allow trailing comma
     path.root.type !== "NGRoot" &&
-    // Dynamic imports cannot have trailing commas
-    node.type !== "ImportExpression" &&
-    node.type !== "TSImportType" &&
-    node.type !== "TSExternalModuleReference"
+    // Dynamic imports cannot have trailing commas https://github.com/prettier/prettier/issues/17405
+    // ..., but `import.sync` can
+    !(node.type === "ImportExpression" && !node.sync) &&
+    // Flow's declared-class extends calls take exactly one argument.
+    node.type !== "DeclareClassExtendsCall" &&
+    !isImportType(node) &&
+    !isExternalModuleReference(node)
       ? printTrailingComma(options, "all")
       : "";
 
@@ -343,10 +351,7 @@ function isHopefullyShortCallArgument(node) {
       typeAnnotation.type === "GenericTypeAnnotation" ||
       typeAnnotation.type === "TSTypeReference"
     ) {
-      const typeArguments =
-        typeAnnotation.type === "GenericTypeAnnotation"
-          ? typeAnnotation.typeParameters
-          : typeAnnotation.typeArguments;
+      const { typeArguments } = typeAnnotation;
       if (typeArguments?.params.length === 1) {
         typeAnnotation = typeArguments.params[0];
       }
